@@ -13,6 +13,8 @@ SECRET_KEY = env(
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
+DATABASE_URL="postgres://postgres:Ixcia7jxnmjJT6hKnZAU0ffhMYqwqtEyIRdtdSXa6YlXTCrJVomL4KoIVXB654kV@127.0.0.1:9001/human_digita"
+
 # CACHES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches

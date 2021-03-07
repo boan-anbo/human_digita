@@ -6,6 +6,7 @@ DJANGO_SECRET_KEY=Do1XO5WdKNBzwkMuy6HemJcoTMteFS8NfpepxIOZCetcPfHew7rFupya4H8Ahx
 DJANGO_ADMIN_URL=UoY5Cp78omjPSDYBLLNgGJ70K7l9F1g6/
 DJANGO_ALLOWED_HOSTS=.example.com
 
+
 # Security
 # ------------------------------------------------------------------------------
 # TIP: better off using DNS, however, redirect is OK too

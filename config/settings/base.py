@@ -10,7 +10,7 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = ROOT_DIR / "human_digita"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
@@ -72,11 +72,33 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
+    # rich text editor
+    "ckeditor",
+    # autocomplete light
+    'dal',
+    'dal_select2',
 ]
 
 LOCAL_APPS = [
-    "human_digita.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "human_digita.action.apps.ActionConfig",
+    "human_digita.action_type",
+    "human_digita.actor.apps.ActorConfig",
+    "human_digita.archive",
+"human_digita.archive_item",
+"human_digita.document",
+"human_digita.event.apps.EventConfig",
+"human_digita.institution",
+"human_digita.institution_type",
+"human_digita.interpretation",
+"human_digita.narrative",
+"human_digita.object",
+"human_digita.organization",
+"human_digita.passage",
+"human_digita.person",
+"human_digita.place",
+"human_digita.users.apps.UsersConfig",
+# Your stuff: custom apps go here
+
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

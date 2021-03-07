@@ -12,7 +12,7 @@ services:
     image: human_digita_local_django
     container_name: django
     depends_on:
-      - postgres
+      - hd_postgres
     volumes:
       - .:/app:z
     env_file:
@@ -22,15 +22,17 @@ services:
       - "8000:8000"
     command: /start
 
-  postgres:
+  hd_postgres:
     build:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: human_digita_production_postgres
-    container_name: postgres
+    container_name: hd_postgres
     volumes:
       - local_postgres_data:/var/lib/postgresql/data:Z
       - local_postgres_data_backups:/backups:z
+    ports:
+      - "9001:5432"
     env_file:
       - ./.envs/.local/.postgres
 
@@ -60,8 +62,8 @@ services:
     container_name: celeryworker
     depends_on:
       - redis
-      - postgres
-      
+      - hd_postgres
+
     ports: []
     command: /start-celeryworker
 
@@ -71,8 +73,8 @@ services:
     container_name: celerybeat
     depends_on:
       - redis
-      - postgres
-      
+      - hd_postgres
+
     ports: []
     command: /start-celerybeat
 

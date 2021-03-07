@@ -1,10 +1,14 @@
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
+
+from human_digita.action_type.action_type_autocomplete_views import ActionTypeAutocomplete
+from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -15,8 +19,21 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("human_digita.users.urls", namespace="users")),
+
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+
+    # autocompletes
+      url(
+          r'^actor-autocomplete/$',
+          ActorAutocomplete.as_view(),
+          name='actor-autocomplete',
+      ),
+    url(
+          r'^action-type-autocomplete/$',
+          ActionTypeAutocomplete.as_view(),
+          name='action-type-autocomplete',
+      ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
