@@ -97,7 +97,13 @@ LOCAL_APPS = [
 "human_digita.person",
 "human_digita.place",
     "human_digita.location",
+
 "human_digita.users.apps.UsersConfig",
+"human_digita.comment",
+"human_digita.annotation",
+"human_digita.tag",
+"human_digita.project",
+
 # Your stuff: custom apps go here
 
 ]

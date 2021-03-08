@@ -9,6 +9,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from human_digita.action_type.action_type_autocomplete_views import ActionTypeAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
+from human_digita.comment.comment_autocomplete_views import CommentAutocomplete
 from human_digita.document.document_autocomplete_views import DocumentAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
@@ -52,6 +53,12 @@ url(
   PassageAutocomplete.as_view(),
   name='passage-autocomplete',
 ),
+url(
+  r'^comment-autocomplete/$',
+  CommentAutocomplete.as_view(),
+  name='comment-autocomplete',
+),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
