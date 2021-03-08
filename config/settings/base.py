@@ -96,6 +96,7 @@ LOCAL_APPS = [
 "human_digita.passage",
 "human_digita.person",
 "human_digita.place",
+    "human_digita.location",
 "human_digita.users.apps.UsersConfig",
 # Your stuff: custom apps go here
 
