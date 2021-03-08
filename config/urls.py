@@ -9,6 +9,9 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from human_digita.action_type.action_type_autocomplete_views import ActionTypeAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
+from human_digita.document.document_autocomplete_views import DocumentAutocomplete
+from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
+from human_digita.place.place_autocomplete_views import PlaceAutocomplete
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -24,16 +27,32 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
 
     # autocompletes
-      url(
-          r'^actor-autocomplete/$',
-          ActorAutocomplete.as_view(),
-          name='actor-autocomplete',
-      ),
-    url(
-          r'^action-type-autocomplete/$',
-          ActionTypeAutocomplete.as_view(),
-          name='action-type-autocomplete',
-      ),
+url(
+  r'^actor-autocomplete/$',
+  ActorAutocomplete.as_view(),
+  name='actor-autocomplete',
+),
+url(
+  r'^action-type-autocomplete/$',
+  ActionTypeAutocomplete.as_view(),
+  name='action-type-autocomplete',
+),
+url(
+  r'^place-autocomplete/$',
+  PlaceAutocomplete.as_view(),
+  name='place-autocomplete',
+),
+url(
+  r'^document-autocomplete/$',
+  DocumentAutocomplete.as_view(),
+  name='document-autocomplete',
+),
+url(
+  r'^passage-autocomplete/$',
+  PassageAutocomplete.as_view(),
+  name='passage-autocomplete',
+),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

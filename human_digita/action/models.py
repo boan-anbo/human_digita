@@ -1,7 +1,6 @@
 import uuid
 
 from ckeditor.fields import RichTextField
-from django.contrib import admin
 from django.db import models
 
 # Create your models here.
@@ -19,6 +18,7 @@ from human_digita.passage.models import Passage
 from human_digita.place.models import Place
 
 
+
 class Action(TimeStampedModel, ActivatorModel, models.Model):
     id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # subject. e.g. Qian gives Zhu a book. Qian
@@ -26,6 +26,7 @@ class Action(TimeStampedModel, ActivatorModel, models.Model):
 
     # place
     places=ManyToManyField(Place, related_name='actions', blank=True)
+
     # verb
     types = ManyToManyField(ActionType, related_name='actions')
     description = RichTextField(max_length=65535, blank=True)
@@ -52,6 +53,7 @@ class Action(TimeStampedModel, ActivatorModel, models.Model):
 
     #sentence
     sentence = models.CharField(max_length=512, default='', blank=True)
+
 
     def __str__(self):
         return self.sentence
