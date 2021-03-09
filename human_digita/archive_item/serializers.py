@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from human_digita.annotation.models import Annotation
 from human_digita.archive_item.models import ArchiveItem
 
 
@@ -10,7 +11,7 @@ class ArchiveItemSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'key',
             'key_type',
-            # 'file_path',
+            'file_path',
             'title',
             'description',
         ]

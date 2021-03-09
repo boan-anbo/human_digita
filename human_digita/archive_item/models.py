@@ -15,16 +15,22 @@ from human_digita.archive_item.const import ArchiveItemTypes, ArchiveItemKeyType
 
 class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    type = models.CharField(max_length=200, choices=ArchiveItemTypes.choices, default=ArchiveItemTypes)
+    type = models.CharField(max_length=200, choices=ArchiveItemTypes.choices, default=ArchiveItemTypes.DOCUMENT)
 
 
     # three ways to identify an entry: title, file path, or identifier
     key = models.CharField(max_length=2000, blank=True) # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
     key_type = models.CharField(max_length=200, choices=ArchiveItemKeyTypes.choices, default=ArchiveItemKeyTypes.CITE_KEY)
-    # file_path = models.CharField(max_length=3000, null=True, blank=True)  # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
+    file_path = models.CharField(max_length=3000, blank=True)  # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
+    file_name = models.CharField(max_length=1000, blank=True)
     title = models.CharField(max_length=2000, blank=True)
     # description of the archive entry
     description = RichTextField(max_length=2000, blank=True)
+
+    modified_date = models.DateTimeField(blank=True, null=True)
+    created_date = models.DateTimeField(blank=True, null=True)
+
+
 
     archive = models.ForeignKey(
         Archive,

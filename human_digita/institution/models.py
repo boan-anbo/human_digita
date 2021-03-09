@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+
 # Create your models here.
 from django.db.models import ManyToManyField
 from django_extensions.db.models import ActivatorModel
@@ -8,7 +9,6 @@ from model_utils.models import TimeStampedModel
 
 from human_digita.institution_type.models import InstitutionType
 from human_digita.place.models import Place
-
 
 # an abstract grouping of actors.
 class Institution(TimeStampedModel, ActivatorModel, models.Model):

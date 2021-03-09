@@ -14,7 +14,7 @@ class Project( TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = RichTextField(max_length=65535, blank=True)
-    keyterms = ManyToManyField(Keyterm, related_name='projects')
+    keyterms = ManyToManyField(Keyterm, blank=True, related_name='projects')
 
 
     def __str__(self):

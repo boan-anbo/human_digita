@@ -1,4 +1,5 @@
 from django_filters import rest_framework as filters
+
 # Create your views here.
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -6,6 +7,7 @@ from rest_framework.response import Response
 
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.serializers import AnnotationSerializer
+from human_digita.document.serializers import DocumentSerializer
 
 
 class AnnotationViewSet(viewsets.ModelViewSet):
@@ -25,9 +27,12 @@ class AnnotationViewSet(viewsets.ModelViewSet):
     )
     def get_standard_annotation_format(self, request):
         annotations = self.get_queryset()
-        response = {}
-        response['annotation'] = AnnotationSerializer(annotations, many=True).data
-
+        response = []
+        for annot in annotations:
+            annot_package = {}
+            annot_package['annotation'] = AnnotationSerializer(annot, many=False).data
+            annot_package['docInfo'] = DocumentSerializer(annot.document, many=False).data
+            response.append(annot_package)
         return Response(response, status=status.HTTP_200_OK)
 
     @action(

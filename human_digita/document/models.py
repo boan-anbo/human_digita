@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from ckeditor.fields import RichTextField
 from django.db import models
@@ -25,7 +26,6 @@ class Document(TimeStampedModel, models.Model):
         blank=True,
         null=True,
         related_name="documents")
-    modified_date = models.DateTimeField(blank=True, null=True)
     pages = models.IntegerField(blank=True, null=True)
     keyterms = ManyToManyField(Keyterm, related_name='documents', blank=True)
     projects = ManyToManyField(Project, related_name='documents', blank=True)

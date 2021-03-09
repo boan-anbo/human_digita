@@ -1,11 +1,15 @@
-from django.contrib import admin
 from django.urls import reverse
+
+from django.contrib import admin
+
 # Register your models here.
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 from human_digita.annotation.admin_forms import AnnotationForm
 from human_digita.annotation.models import Annotation
+
+
 
 
 @admin.register(Annotation)
