@@ -2,7 +2,6 @@ import uuid
 
 from ckeditor.fields import RichTextField
 from django.db import models
-
 # Create your models here.
 from django.db.models import ManyToManyField
 from django_extensions.db.models import ActivatorModel
@@ -16,7 +15,6 @@ from human_digita.interpretation.models import Interpretation
 from human_digita.narrative.models import Narrative
 from human_digita.passage.models import Passage
 from human_digita.place.models import Place
-
 
 
 class Action(TimeStampedModel, ActivatorModel, models.Model):

@@ -1,7 +1,6 @@
 import uuid
 
 from django.db import models
-
 # Create your models here.
 from django.db.models import ManyToManyField
 from django_extensions.db.models import ActivatorModel

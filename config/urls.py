@@ -9,10 +9,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from human_digita.action_type.action_type_autocomplete_views import ActionTypeAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
+from human_digita.archive_item.archive_item_autocomplete_views import ArchiveItemAutocomplete
 from human_digita.comment.comment_autocomplete_views import CommentAutocomplete
 from human_digita.document.document_autocomplete_views import DocumentAutocomplete
+from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
+from human_digita.project.project_autocomplete_views import ProjectAutocomplete
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -59,7 +62,21 @@ url(
   name='comment-autocomplete',
 ),
 
-
+url(
+  r'^project-autocomplete/$',
+  ProjectAutocomplete.as_view(),
+  name='project-autocomplete',
+),
+url(
+  r'^keyterm-autocomplete/$',
+  KeytermAutocomplete.as_view(),
+  name='keyterm-autocomplete',
+),
+url(
+  r'^archiveitem-autocomplete/$',
+  ArchiveItemAutocomplete.as_view(),
+  name='archiveitem-autocomplete',
+)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

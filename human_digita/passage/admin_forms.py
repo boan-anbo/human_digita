@@ -1,7 +1,6 @@
 from dal import autocomplete
 from django import forms
 
-from human_digita.action.models import Action
 from human_digita.passage.models import Passage
 
 

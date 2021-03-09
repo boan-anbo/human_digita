@@ -2,13 +2,11 @@ import uuid
 
 from ckeditor.fields import RichTextField
 from django.db import models
-
 # Create your models here.
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
 from human_digita.archive.const import ArchiveTypes
-from human_digita.archive_item.const import ArchiveItemType
 
 
 class Archive(TimeStampedModel, ActivatorModel, models.Model):

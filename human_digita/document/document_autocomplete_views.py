@@ -1,9 +1,6 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from human_digita.action.models import Action
-from human_digita.action_type.models import ActionType
-from human_digita.actor.models import Actor
 from human_digita.document.models import Document
 
 

@@ -2,9 +2,8 @@ import uuid
 
 from ckeditor.fields import RichTextField
 from django.db import models
-
 # Create your models here.
-from django.db.models import OneToOneField, ManyToManyField
+from django.db.models import ManyToManyField
 from django_extensions.db.models import ActivatorModel, TimeStampedModel
 
 from human_digita.passage.models import Passage

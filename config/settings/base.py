@@ -77,6 +77,8 @@ THIRD_PARTY_APPS = [
     # autocomplete light
     'dal',
     'dal_select2',
+    # admin object
+    'django_object_actions'
 ]
 
 LOCAL_APPS = [
@@ -103,7 +105,8 @@ LOCAL_APPS = [
 "human_digita.annotation",
 "human_digita.tag",
 "human_digita.project",
-
+"human_digita.keyterm",
+"human_digita.idea",
 # Your stuff: custom apps go here
 
 ]
@@ -332,9 +335,26 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+        # Any other renders
+    ],
+
+    'DEFAULT_PARSER_CLASSES': [
+        # If you use MultiPartFormParser or FormParser, we also have a camel case version
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+        # Any other parsers
+    ],
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4600",
+]
 # ------------------------------------------------------------------------------

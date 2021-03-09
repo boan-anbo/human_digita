@@ -7,6 +7,7 @@ from rest_framework.response import Response
 
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.serializers import AnnotationSerializer
+from human_digita.document.serializers import DocumentSerializer
 
 
 class AnnotationViewSet(viewsets.ModelViewSet):
@@ -24,12 +25,15 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['get']
     )
-    def get_annotations(self, request):
+    def get_standard_annotation_format(self, request):
         annotations = self.get_queryset()
-
-        leads_payload = AnnotationSerializer(annotations, many=True).data
-
-        return Response(leads_payload, status=status.HTTP_200_OK)
+        response = []
+        for annot in annotations:
+            annot_package = {}
+            annot_package['annotation'] = AnnotationSerializer(annot, many=False).data
+            annot_package['docInfo'] = DocumentSerializer(annot.document, many=False).data
+            response.append(annot_package)
+        return Response(response, status=status.HTTP_200_OK)
 
     @action(
         detail=False,
