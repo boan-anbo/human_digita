@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class ArchiveItemConfig(AppConfig):
-    name = 'archive_item'
+    name = 'human_digita.archive_item'

@@ -4,6 +4,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from human_digita.action.models import Action
+
 logger = logging.getLogger(__name__)
 
 @receiver(pre_save, sender=Action)

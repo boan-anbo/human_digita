@@ -1,5 +1,4 @@
 from django_filters import rest_framework as filters
-
 # Create your views here.
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -24,12 +23,12 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['get']
     )
-    def get_annotations(self, request):
+    def get_standard_annotation_format(self, request):
         annotations = self.get_queryset()
+        response = {}
+        response['annotation'] = AnnotationSerializer(annotations, many=True).data
 
-        leads_payload = AnnotationSerializer(annotations, many=True).data
-
-        return Response(leads_payload, status=status.HTTP_200_OK)
+        return Response(response, status=status.HTTP_200_OK)
 
     @action(
         detail=False,

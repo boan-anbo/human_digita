@@ -1,12 +1,12 @@
-from django.shortcuts import render
-
 # Create your views here.
+from django_filters import rest_framework as filters
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from human_digita.annotation.actions import save_annotation
 from human_digita.document.models import Document
+from human_digita.document.serializers import DocumentSerializer
 
 
 class DocumentViewSet(viewsets.ModelViewSet):
@@ -14,8 +14,8 @@ class DocumentViewSet(viewsets.ModelViewSet):
     # authentication_classes = []
 
     queryset = Document.objects.all().order_by('created')
-    # serializer_class = AnnotationSerializer
-    # filter_backends = [filters.DjangoFilterBackend]
+    serializer_class = DocumentSerializer
+    filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
     permission_classes = []
 

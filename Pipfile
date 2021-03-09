@@ -49,6 +49,8 @@ django-ckeditor = "*"
 django-autocomplete-light = "*"
 django-filter = "*"
 django-uuslug = "*"
+django-object-actions = "*"
+djangorestframework-camel-case = "*"
 
 [dev-packages]
 
