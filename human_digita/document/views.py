@@ -1,10 +1,14 @@
 # Create your views here.
+import json
+import logging
+
 from django_filters import rest_framework as filters
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from human_digita.annotation.actions import save_annotation
+from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
 from human_digita.document.serializers import DocumentSerializer
 
@@ -13,7 +17,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
     # this empty the project setting for authentications in order to easy the CSRF token authentication for Post, i.e. when you try to post leads.
     # authentication_classes = []
 
-    queryset = Document.objects.all().order_by('created')
+    queryset = Document.objects.all().prefetch_related('archive_item').order_by('created')
     serializer_class = DocumentSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
@@ -36,12 +40,24 @@ class DocumentViewSet(viewsets.ModelViewSet):
         methods=['post']
     )
     def post_document(self, request):
-        annotations = request.data.get('annotations', None)
-        # print(base64_image)
-        if annotations:
-            for annotation in annotations:
-                save_annotation(annotation)
+        try:
+            print(request.data)
+            annotations = request.data.get('annotations', None)
+            print('Annotation Length', len(annotations))
+            if annotations is None or len(annotations) == 0:
+                raise Exception('Empty Annotation')
+            # print(request.data)
+            docInfo = request.data['docInfo']
 
-        # leads_payload = AnnotationSerializer(annotations, many=True).data
+            new_doc = save_doc_info_to_document(docInfo)
 
-        return Response(status=status.HTTP_200_OK)
+            if annotations:
+                for annotation in annotations:
+                    save_annotation(annotation, new_doc)
+                    print(1)
+            # leads_payload = AnnotationSerializer(annotations, many=True).data
+
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)

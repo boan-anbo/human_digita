@@ -15,6 +15,7 @@ class AnnotationForm(forms.ModelForm):
     # )
     class Meta:
         model = Annotation
+
         fields = ('__all__')
         widgets = {
             'document': autocomplete.ModelSelect2(url='document-autocomplete'),

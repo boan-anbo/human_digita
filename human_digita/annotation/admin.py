@@ -14,14 +14,35 @@ from human_digita.annotation.models import Annotation
 
 @admin.register(Annotation)
 class AnnotationAdmin(admin.ModelAdmin):
-
+    list_filter = [
+        'annotation_type',
+        'document',
+        'importance',
+        'keyterms'
+    ]
     filter_horizontal = ['comments']
     ordering = ['-created']
-    readonly_fields = ['display_comments','image_preview', 'document_link']
+    readonly_fields = [
+        'display_comments',
+        'image_preview',
+        'document_link'
+    ]
 
     search_fields =  ['marked_text']
-    list_display = ['id', 'annotation_type', 'display_comments', 'display_keyterms', 'marked_text']
+    list_display = [
+        'id',
+        'importance',
+        'document',
+        'display_comments',
+        'display_keyterms',
+        'marked_text'
+    ]
     form = AnnotationForm
+
+    def get_queryset(self, request):
+        qs = super(AnnotationAdmin, self).get_queryset(request)
+        qs = qs.prefetch_related('comments', 'document', 'keyterms')
+        return qs
 
     def image_preview(self, obj):
         return format_html('<img src="{0}" />'.format(obj.image.url))

@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 from django.db.models import ManyToManyField
+from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
 from human_digita.comment.models import Comment
@@ -14,7 +15,16 @@ from human_digita.keyterm.models import Keyterm
 from human_digita.project.models import Project
 
 
-class Annotation(TimeStampedModel, models.Model):
+class Annotation(ActivatorModel, TimeStampedModel, models.Model):
+    class Importance(models.IntegerChoices):
+        UNKNOWN = 0
+        LOWEST = 1
+        LOW = 2
+        MEDIUM = 3
+        HIGH = 4
+        HIGHEST = 5
+
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     marked_text = RichTextField(max_length=65535, blank=True)
     modified_date = models.DateTimeField(blank=True, null=True, default=datetime.now)
@@ -22,6 +32,7 @@ class Annotation(TimeStampedModel, models.Model):
     page_index = models.IntegerField(null=True,blank=True)
     document = models.ForeignKey(Document, on_delete=models.SET_NULL, null=True, blank=True, related_name='annotations')
     image = models.ImageField(blank=True)
+    importance = models.IntegerField(choices=Importance.choices, default=Importance.UNKNOWN, blank=True)
     comments = ManyToManyField(Comment, related_name='annotations', blank=True)
     projects = ManyToManyField(Project, related_name='annotations', blank=True)
     keyterms = ManyToManyField(Keyterm, related_name='annotations', blank=True)

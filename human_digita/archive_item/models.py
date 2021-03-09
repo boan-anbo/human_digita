@@ -23,7 +23,7 @@ class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
     key_type = models.CharField(max_length=200, choices=ArchiveItemKeyTypes.choices, default=ArchiveItemKeyTypes.CITE_KEY)
     file_path = models.CharField(max_length=3000, blank=True)  # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
     file_name = models.CharField(max_length=1000, blank=True)
-    title = models.CharField(max_length=2000, blank=True)
+    title = models.CharField(max_length=2000, blank=False)
     # description of the archive entry
     description = RichTextField(max_length=2000, blank=True)
 
@@ -40,4 +40,5 @@ class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
         related_name="archive_items"
     )
 
-
+    def __str__(self):
+        return self.title

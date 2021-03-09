@@ -8,6 +8,7 @@ from human_digita.document.models import Document
 
 class DocumentSerializer(serializers.HyperlinkedModelSerializer):
     file_path = serializers.CharField(source='archive_item.file_path')
+    file_name = serializers.CharField(source='archive_item.file_name')
     cite_key = serializers.SerializerMethodField()
     created_date = serializers.DateTimeField(source='archive_item.created_date')
     modified_date = serializers.DateTimeField(source='archive_item.modified_date')
@@ -21,6 +22,7 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
             'cite_key',
             'pages',
             'file_path',
+            'file_name'
 
                   ]
 

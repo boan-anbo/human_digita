@@ -19,6 +19,13 @@ if READ_DOT_ENV_FILE:
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
+
+
+# Debug bar not showing up
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+}
+
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -342,13 +349,13 @@ REST_FRAMEWORK = {
         # Any other renders
     ],
 
-    'DEFAULT_PARSER_CLASSES': [
-        # If you use MultiPartFormParser or FormParser, we also have a camel case version
-        'djangorestframework_camel_case.parser.CamelCaseFormParser',
-        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
-        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
-        # Any other parsers
-    ],
+    # 'DEFAULT_PARSER_CLASSES': [
+    #     # If you use MultiPartFormParser or FormParser, we also have a camel case version
+    #     # 'djangorestframework_camel_case.parser.CamelCaseFormParser',
+    #     # 'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+    #     'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    #     # Any other parsers
+    # ],
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
