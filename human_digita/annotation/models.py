@@ -10,19 +10,13 @@ from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
 from human_digita.comment.models import Comment
+from human_digita.common.const import Importance
 from human_digita.document.models import Document
 from human_digita.keyterm.models import Keyterm
 from human_digita.project.models import Project
 
 
 class Annotation(ActivatorModel, TimeStampedModel, models.Model):
-    class Importance(models.IntegerChoices):
-        UNKNOWN = 0
-        LOWEST = 1
-        LOW = 2
-        MEDIUM = 3
-        HIGH = 4
-        HIGHEST = 5
 
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

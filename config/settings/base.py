@@ -364,5 +364,6 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4600",
+    "http://localhost:4200",
 ]
 # ------------------------------------------------------------------------------

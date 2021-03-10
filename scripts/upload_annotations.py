@@ -7,7 +7,7 @@ import requests
 
 def send_json(json):
     newHeaders = {'Content-type': 'application/json'}
-    r = requests.post("http://localhost:8000/api/documents/post_document/", json=json, headers=newHeaders)
+    r = requests.post("http://localhost:8010/api/documents/post_document/", json=json, headers=newHeaders)
     # print(r)
     return r
 def star_send_json(q, json):

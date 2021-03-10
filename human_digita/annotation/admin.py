@@ -18,14 +18,19 @@ class AnnotationAdmin(admin.ModelAdmin):
         'annotation_type',
         'document',
         'importance',
-        'keyterms'
+        'keyterms',
+        'importance'
+    ]
+    list_editable = [
+        'importance'
     ]
     filter_horizontal = ['comments']
     ordering = ['-created']
     readonly_fields = [
         'display_comments',
         'image_preview',
-        'document_link'
+        'document_link',
+        'comment_links'
     ]
 
     search_fields =  ['marked_text']
@@ -65,4 +70,20 @@ class AnnotationAdmin(admin.ModelAdmin):
                 doc.title)
         if display_text:
             return mark_safe(display_text)
+        return "-"
+
+    def comment_links(self, obj: Annotation):
+        comments = obj.comments.all()
+        links = []
+        for comment in comments:
+            display_text = "<a href={}>{}</a>".format(
+                    reverse('admin:{}_{}_change'.format(comment._meta.app_label, comment._meta.model_name),
+                            args=(comment.pk,)),
+                    comment.content)
+            if display_text:
+                links.append(display_text)
+        if links:
+            return mark_safe(";<br>".join([
+                child for child in links
+            ]))
         return "-"

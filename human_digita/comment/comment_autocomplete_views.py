@@ -13,6 +13,6 @@ class CommentAutocomplete(autocomplete.Select2QuerySetView):
         qs = Comment.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(content=self.q))
+            qs = qs.filter(Q(content__icontains=self.q))
 
         return qs

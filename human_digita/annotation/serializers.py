@@ -17,6 +17,7 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             'annotation_type',
             'page_index',
             'image_url',
+            'importance',
             # 'comments'
             'comment'
               ]
