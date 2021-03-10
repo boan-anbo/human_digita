@@ -51,6 +51,7 @@ django-filter = "*"
 django-uuslug = "*"
 django-object-actions = "*"
 djangorestframework-camel-case = "*"
+jsonfield = "*"
 
 [dev-packages]
 

@@ -105,7 +105,8 @@ LOCAL_APPS = [
 "human_digita.passage",
 "human_digita.person",
 "human_digita.place",
-    "human_digita.location",
+"human_digita.location",
+"human_digita.manuscript_backup",
 
 "human_digita.users.apps.UsersConfig",
 "human_digita.comment",
