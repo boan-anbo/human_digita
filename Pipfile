@@ -56,6 +56,7 @@ django-haystack = "*"
 pysolr = "*"
 elasticsearch = "*"
 drf-haystack = "*"
+dal-admin-filters = "*"
 
 [dev-packages]
 

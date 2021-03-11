@@ -17,7 +17,9 @@ class Passage(TimeStampedModel, models.Model):
     before_text = RichTextField(max_length=65535, blank=True)
     text = RichTextField(max_length=65535, blank=True)
     after_text = RichTextField(max_length=65535, blank=True)
-    location = OneToOneField(Location, on_delete=models.SET_NULL, null=True, related_name='passage')
+    page_index = models.IntegerField(null=True,blank=True)
+    # location = OneToOneField(Location, on_delete=models.SET_NULL, null=True, related_name='passage')
+    document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='passages')
 
     def __str__(self):
         return self.text[0:20]

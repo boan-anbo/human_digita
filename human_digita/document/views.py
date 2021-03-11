@@ -49,20 +49,28 @@ class DocumentViewSet(viewsets.ModelViewSet):
     )
     def post_document(self, request):
         try:
-            print(request.data)
-            annotations = request.data.get('annotations', None)
-            print('Annotation Length', len(annotations))
-            if annotations is None or len(annotations) == 0:
-                raise Exception('Empty Annotation')
             # print(request.data)
+            annotations = request.data.get('annotations', None)
+            fulltexts = request.data.get('fullTexts', None)
+
+            if annotations is None and fulltexts is None:
+                raise Exception('Empty Annotation and Full Texts')
+
             docInfo = request.data['docInfo']
 
             new_doc = save_doc_info_to_document(docInfo)
 
-            if annotations:
-                for annotation in annotations:
-                    save_annotation(annotation, new_doc)
-                    print(1)
+            # print('Annotation Length', len(annotations))
+
+            # if annotations is not None and len(annotations) > 0:
+                # if annotations:
+                # for annotation in annotations:
+                #     save_annotation(annotation, new_doc)
+                    # print(1)
+            # print(request.data)
+
+            if fulltexts is not None and len(fulltexts) > 0:
+                print('Has FUll Texts')
             # leads_payload = AnnotationSerializer(annotations, many=True).data
 
             return Response(status=status.HTTP_200_OK)

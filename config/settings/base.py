@@ -66,6 +66,12 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
+    # autocomplete light; has to come before contrib admin
+    'dal',
+    'dal_select2',
+    'dal_admin_filters',
+
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
@@ -81,9 +87,7 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     # rich text editor
     "ckeditor",
-    # autocomplete light
-    'dal',
-    'dal_select2',
+
     # admin object
     'django_object_actions',
 
@@ -352,6 +356,8 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
         # Any other renders
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
 
     # 'DEFAULT_PARSER_CLASSES': [
     #     # If you use MultiPartFormParser or FormParser, we also have a camel case version
@@ -375,7 +381,8 @@ HAYSTACK_CONNECTIONS = {
                     'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
                     'URL': 'http://127.0.0.1:9200/',
                     'INDEX_NAME': 'haystack_books',
+                    'INCLUDE_SPELLING': False,
               },
     }
-
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
+# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
