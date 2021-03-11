@@ -327,6 +327,10 @@ human_digita/media/
 
 
 .ipython/
-.env
-.envs/*
-!.envs/.local/
+.env
+
+.envs/*
+
+!.envs/.local/
+
+hm_db.sqlite
