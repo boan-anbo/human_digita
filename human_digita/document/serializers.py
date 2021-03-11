@@ -1,9 +1,11 @@
+from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
 
 from human_digita.annotation.models import Annotation
 from human_digita.archive_item.const import ArchiveItemTypes, ArchiveItemKeyTypes
 from human_digita.archive_item.serializers import ArchiveItemSerializer
 from human_digita.document.models import Document
+from human_digita.document.search_indexes import DocumentIndex
 
 
 class DocumentSerializer(serializers.HyperlinkedModelSerializer):
@@ -30,5 +32,11 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
         if obj.archive_item and obj.archive_item.key_type == ArchiveItemKeyTypes.CITE_KEY:
             return obj.archive_item.key
 
+class DocumentIndexSerializer(HaystackSerializer):
+    # document = DocumentSerializer(read_only=True)  # 只读,不可以进行反序列化
+
+    class Meta:
+        index_classes = [DocumentIndex]  # 索引类的名称
+        fields = ['text', 'title']  # text 由索引类进行返回, object 由序列化类进行返回,第一个参数必须是text
 
 

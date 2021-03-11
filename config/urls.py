@@ -18,6 +18,9 @@ from human_digita.place.place_autocomplete_views import PlaceAutocomplete
 from human_digita.project.project_autocomplete_views import ProjectAutocomplete
 
 urlpatterns = [
+    # search view
+    # path('^search/', include('haystack.urls')),
+
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

@@ -1,14 +1,26 @@
 from django_filters import rest_framework as filters
 
 # Create your views here.
+from drf_haystack.filters import HaystackHighlightFilter
+from drf_haystack.viewsets import HaystackViewSet
+from haystack.query import SearchQuerySet
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from human_digita.annotation.models import Annotation
-from human_digita.annotation.serializers import AnnotationSerializer
+from human_digita.annotation.serializers import AnnotationSerializer, AnnotationIndexSerializer
 from human_digita.comment.models import Comment
 from human_digita.document.serializers import DocumentSerializer
+
+
+class AnnotationSearchViewSet(HaystackViewSet):
+    index_models = [Annotation]
+    # queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms').all()
+    serializer_class = AnnotationIndexSerializer
+    filter_backends = [HaystackHighlightFilter]
+    permission_classes = []
+
 
 
 class AnnotationViewSet(viewsets.ModelViewSet):

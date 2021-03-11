@@ -1,7 +1,13 @@
+from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
 
 from human_digita.annotation.models import Annotation
+from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
+
+
+
+
 
 
 class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
@@ -34,4 +40,12 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
         return ";\n ".join([
             child.__str__() for child in obj.comments.all()
         ])
+
+
+class AnnotationIndexSerializer(HaystackSerializer):
+    # document = DocumentSerializer(read_only=True)  # 只读,不可以进行反序列化
+    # object = AnnotationSerializer(many=False)
+    class Meta:
+        index_classes = [AnnotationIndex]  # 索引类的名称
+        fields = ['id','marked_text', 'text']  # text 由索引类进行返回, object 由序列化类进行返回,第一个参数必须是text
 
