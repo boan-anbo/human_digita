@@ -103,3 +103,9 @@ services:
       - "3000:3000"
       # Expose browsersync UI: https://www.browsersync.io/docs/options/#option-ui
       - "3001:3001"
+
+  es:
+    image: launcher.gcr.io/google/elasticsearch2
+    ports:
+      - "9200:9200"
+      - "9300:9300"

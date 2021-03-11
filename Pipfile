@@ -52,6 +52,10 @@ django-uuslug = "*"
 django-object-actions = "*"
 djangorestframework-camel-case = "*"
 jsonfield = "*"
+django-haystack = "*"
+pysolr = "*"
+elasticsearch = "*"
+drf-haystack = "*"
 
 [dev-packages]
 

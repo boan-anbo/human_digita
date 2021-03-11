@@ -19,7 +19,7 @@ class Document(TimeStampedModel, models.Model):
     type = models.CharField(max_length=200, choices=DocumentType.choices, default=DocumentType.DOCUMENT)
     title = models.CharField(max_length=200, blank=False)
     description = RichTextField(max_length=65535, blank=True, null=True)
-    content = RichTextField(max_length=65535, blank=True, null=True)
+    text = RichTextField(max_length=65535, blank=True, null=True)
     author_string = models.CharField(max_length=512, blank=True, null=True)
     archive_item = models.ForeignKey(
         ArchiveItem,

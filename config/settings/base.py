@@ -85,7 +85,10 @@ THIRD_PARTY_APPS = [
     'dal',
     'dal_select2',
     # admin object
-    'django_object_actions'
+    'django_object_actions',
+
+    # haystack
+    'haystack',
 ]
 
 LOCAL_APPS = [
@@ -367,3 +370,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 # ------------------------------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+              'default': {
+                    'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+                    'URL': 'http://127.0.0.1:9200/',
+                    'INDEX_NAME': 'haystack_books',
+              },
+    }
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
