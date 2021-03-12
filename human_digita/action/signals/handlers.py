@@ -3,12 +3,12 @@ import logging
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from human_digita.action.models import Action
+from human_digita.action.models import Act
 
 logger = logging.getLogger(__name__)
 
-@receiver(pre_save, sender=Action)
-def generate_action_sentence_en(sender, instance: Action, **kwargs):
+@receiver(pre_save, sender=Act)
+def generate_action_sentence_en(sender, instance: Act, **kwargs):
 
     subject = ", ".join([
         child.__str__() for child in instance.actants.all()

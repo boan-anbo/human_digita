@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django import forms
 
-from human_digita.action.models import Action
+from human_digita.action.models import Act
 from human_digita.annotation.models import Annotation
 from human_digita.comment.models import Comment
 from human_digita.passage.models import Passage
@@ -21,6 +21,7 @@ class AnnotationForm(forms.ModelForm):
             'document': autocomplete.ModelSelect2(url='document-autocomplete'),
             'comments': autocomplete.ModelSelect2Multiple(url='comment-autocomplete'),
             'projects': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
+            'passage': autocomplete.ModelSelect2(url='passage-autocomplete'),
             'keyterms': autocomplete.Select2Multiple(url='keyterm-autocomplete', forward=['projects'])
         }
 

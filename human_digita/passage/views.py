@@ -24,7 +24,7 @@ class PassageSearchViewSet(HaystackViewSet):
 
 
 class PassageViewSet(viewsets.ModelViewSet):
-    queryset = Passage.objects.all().prefetch_related('document').order_by('created')
+    queryset = Passage.objects.all().prefetch_related('document', 'annotations').order_by('created')
     serializer_class = PassageSerializer
     filter_backends = [filters.DjangoFilterBackend]
     permission_classes = []

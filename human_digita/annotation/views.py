@@ -8,6 +8,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from human_digita.annotation.actions import save_annotation
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.serializers import AnnotationSerializer, AnnotationIndexSerializer
 from human_digita.comment.models import Comment
@@ -28,7 +29,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
     # authentication_classes = []
 
     # queryset = Annotation.objects.all().order_by('created')
-    queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms').all().order_by('created')
+    queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms', 'passage').all().order_by('created')
     serializer_class = AnnotationSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
@@ -44,9 +45,16 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         # annotations = self.get_queryset()
         response = []
         for annot in annotations:
+            document = None
+            if annot.document is not None:
+                document = annot.document
+            else:
+                if annot.passage:
+                    document = annot.passage.document
+
             annot_package = {}
             annot_package['annotation'] = AnnotationSerializer(annot, many=False).data
-            annot_package['docInfo'] = DocumentSerializer(annot.document, many=False).data
+            annot_package['docInfo'] = DocumentSerializer(document, many=False).data
             annot_package['id'] = annot.id
             response.append(annot_package)
         return Response(response, status=status.HTTP_200_OK)
@@ -56,12 +64,21 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         methods=['get']
     )
     def get_standard_annotation_format(self, request, pk=None):
-        annotation = self.get_queryset().prefetch_related('document__archive_item').get(pk=pk)
+        annotation = self.get_queryset().prefetch_related('document__archive_item', 'passage').get(pk=pk)
         # annotations = self.get_queryset()
         # response =
+
+        document = None
+        if annotation.document is not None:
+            document = annotation.document
+        else:
+            if annotation.passage:
+                document = annotation.passage.document
+
+
         annot_package = {}
         annot_package['annotation'] = AnnotationSerializer(annotation, many=False).data
-        annot_package['docInfo'] = DocumentSerializer(annotation.document, many=False).data
+        annot_package['docInfo'] = DocumentSerializer(document, many=False).data
         annot_package['id'] = annotation.id
 
         return Response(annot_package, status=status.HTTP_200_OK)
@@ -83,15 +100,26 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['post']
     )
-    def post_annotation(self, request):
-        base64_image = request.data.get('annotations')
-        # print(base64_image)
+    def post_annotations(self, request):
+        try:
+            annotations = request.data['annotations']
+            # print(base64_image)
 
-        print(request.data)
-        # leads_payload = AnnotationSerializer(annotations, many=True).data
+            all_saved_annotations: [str] = []
 
-        return Response(status=status.HTTP_200_OK)
+            for annot in annotations:
+                saved_annotation = save_annotation(annot)
+                all_saved_annotations.append(saved_annotation)
 
+            print(request.data)
+            # leads_payload = AnnotationSerializer(annotations, many=True).data
+            saved_annotations_str = self.get_serializer(Annotation.objects.filter(id__in=all_saved_annotations).all(), many=True).data
+
+            print(saved_annotations_str)
+            return Response(saved_annotations_str, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     @action(
         detail=False,
         methods=['post']

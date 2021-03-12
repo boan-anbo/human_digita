@@ -1,16 +1,13 @@
 from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
-from rest_framework.relations import StringRelatedField
 
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
 
 
-class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
-    from human_digita.passage.serializers import PassageSerializer
+class AnnotationSerializerWithoutPassages(serializers.HyperlinkedModelSerializer):
     image_url = serializers.SerializerMethodField()
-    passage = PassageSerializer(many=False)
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
     class Meta:
@@ -23,9 +20,8 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             'page_index',
             'image_url',
             'importance',
-            'comments',
             'comment',
-            'passage',
+            'comments',
             'keyterms_raw'
               ]
 

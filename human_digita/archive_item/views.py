@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import webbrowser
 
 from django.shortcuts import render
 
@@ -33,17 +34,20 @@ class ArchiveItemViewSet(viewsets.ModelViewSet):
             if item.exists():
                 file_path = item.get().file_path
 
+        # file_path = \\\\?\\ + file_path
+        # Fix long path access:
 
-        print(file_path)
         # os.startfile(file_path)
         if file_path:
             try:
                 if not os.path.isfile(file_path):
                     return Response('FILE NOT FOUND: ' + file_path, status=status.HTTP_400_BAD_REQUEST)
-                opener = "open" if sys.platform == "darwin" else "xdg-open"
-                subprocess.call([opener, file_path])
+                # opener = "open" if sys.platform == "darwin" else "xdg-open"
+                # subprocess.call([opener, file_path])
+                webbrowser.open_new(r'file://' + file_path +'#page=5')
+
                 return Response(status=status.HTTP_200_OK)
             except Exception as e:
-                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+                return Response('FILE NOT FOUND: ' + file_path, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response('Cannot find path', status=status.HTTP_400_BAD_REQUEST)

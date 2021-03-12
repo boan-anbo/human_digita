@@ -9,6 +9,8 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
 
     language = indexes.CharField(model_attr='language')
 
+    title = indexes.CharField(indexed=True)
+
     text = indexes.CharField(document=True, model_attr='text')
     def get_model(self):
         """返回建立索引的模型类"""
@@ -20,6 +22,13 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_id(self, obj):
         return obj.id
+
+    def prepare_title(self, obj: Passage):
+        document_title=None
+        if obj.document:
+            document_title = obj.document.__str__()
+        return document_title
+
 
     # def prepare_text(self, obj):
     #     return obj.marked_text

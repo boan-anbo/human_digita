@@ -13,6 +13,6 @@ class PassageAutocomplete(autocomplete.Select2QuerySetView):
         qs = Passage.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(text__icontains=self.q)|Q(before_text__icontains=self.q)|Q(after_text__icontains=self.q))
+            qs = qs.filter(Q(id__icontains=self.q)|Q(text__icontains=self.q)|Q(before_text__icontains=self.q)|Q(after_text__icontains=self.q))
 
         return qs

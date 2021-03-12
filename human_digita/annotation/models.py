@@ -13,6 +13,7 @@ from human_digita.comment.models import Comment
 from human_digita.common.const import Importance
 from human_digita.document.models import Document
 from human_digita.keyterm.models import Keyterm
+from human_digita.passage.models import Passage
 from human_digita.project.models import Project
 
 
@@ -30,6 +31,8 @@ class Annotation(ActivatorModel, TimeStampedModel, models.Model):
     comments = ManyToManyField(Comment, related_name='annotations', blank=True)
     projects = ManyToManyField(Project, related_name='annotations', blank=True)
     keyterms = ManyToManyField(Keyterm, related_name='annotations', blank=True)
+    keyterms_raw = models.CharField(max_length=1024, blank=True, default='')
+    passage =  models.ForeignKey(Passage, related_name='annotations', blank=True, on_delete=models.SET_NULL, null=True)
 
 
     def __str__(self):

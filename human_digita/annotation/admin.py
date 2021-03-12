@@ -9,6 +9,7 @@ from django.utils.safestring import mark_safe
 from human_digita.annotation.admin_forms import AnnotationForm
 from human_digita.annotation.models import Annotation
 from human_digita.document.admin_actions import get_document_admin_link
+from human_digita.passage.admin_actions import get_passage_links
 
 
 @admin.register(Annotation)
@@ -29,12 +30,14 @@ class AnnotationAdmin(admin.ModelAdmin):
         'display_comments',
         'image_preview',
         'document_link',
-        'comment_links'
+        'comment_links',
+        'passage_links'
     ]
 
     search_fields =  ['marked_text']
     list_display = [
         'id',
+        'keyterms_raw',
         'importance',
         'document',
         'display_comments',
@@ -45,7 +48,7 @@ class AnnotationAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(AnnotationAdmin, self).get_queryset(request)
-        qs = qs.prefetch_related('comments', 'document', 'keyterms')
+        qs = qs.prefetch_related('comments', 'document', 'keyterms', 'passage')
         return qs
 
     def image_preview(self, obj):
@@ -80,3 +83,6 @@ class AnnotationAdmin(admin.ModelAdmin):
                 child for child in links
             ]))
         return "-"
+    def passage_links(self, obj: Annotation):
+        passages = [obj.passage]
+        return get_passage_links(passages)

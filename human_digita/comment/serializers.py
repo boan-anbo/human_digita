@@ -10,6 +10,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
             'id',
             'content',
             'original',
+            'importance'
                   ]
 
     # def get_cite_key(self, obj: Document):

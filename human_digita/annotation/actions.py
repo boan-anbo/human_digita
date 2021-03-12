@@ -3,8 +3,10 @@ import base64
 from django.core.files.base import ContentFile
 
 from human_digita.annotation.models import Annotation
+from human_digita.comment.actions import save_comment
 from human_digita.comment.models import Comment
 from human_digita.document.models import Document
+from human_digita.passage.models import Passage
 
 
 def base64_to_imagefield_content(base64_str) -> ContentFile:
@@ -31,55 +33,86 @@ def check_duplicate_annotation(new_annot: Annotation):
         return False
 
 # if update, missing fields will be added
-def save_annotation(annotation_json, document: Document, update=True):
+def save_annotation(annotation_json, document: Document=None, update=True) -> str:
+    try:
+        new_annotation = Annotation()
+
+        annotation_id = annotation_json.get('id', None)
+
+        if annotation_id:
+            old_annotation = Annotation.objects.get(pk=annotation_id)
+            new_annotation = old_annotation
+
+        # save image
+        image_base64 = annotation_json.get('image', None)
+        if image_base64:
+            print('Found image base64')
+            new_annotation.image = base64_to_imagefield_content(image_base64)
+
+        # pageIndex
+        page_index = annotation_json.get('pageIndex', None)
+        if page_index is not None:
+            new_annotation.page_index = page_index
+
+        marked_text = annotation_json.get('markedText', None)
+        if marked_text:
+            new_annotation.marked_text = marked_text
+
+        modified_date = annotation_json.get('modifiedDate', None)
+        if modified_date:
+            new_annotation.modified_date = modified_date
+
+        # annotation type
+
+        annotation_type = annotation_json.get('annotationType', None)
+        if annotation_type:
+            new_annotation.annotation_type = annotation_type
+
+        # importance:
+        importance = annotation_json.get('importance', None)
+        if importance:
+            new_annotation.importance = importance
+
+        new_annotation.document = document
+
+        old_annot = check_duplicate_annotation(new_annotation)
+        if old_annot is not False:
+            if update:
+                if old_annot.document is None:
+                    old_annot.document = document
+                    old_annot.save()
+
+        new_annotation.save()
+
+        passage_json = annotation_json.get('passage', None)
+        if passage_json:
+            passage_id = passage_json.get('id', None)
+            passage_obj = Passage.objects.get(id=passage_id)
+            passage_obj.annotations.add(new_annotation)
+            passage_obj.save()
+
+            # new_annotation.save()
 
 
-    newAnnotation = Annotation()
+        new_comments = annotation_json.get('comments', None)
+        if new_comments:
+            if annotation_id:
 
-
-
-    # save image
-    image_base64 = annotation_json.get('image', None)
-    if image_base64:
-        print('Found image base64')
-        newAnnotation.image = base64_to_imagefield_content(image_base64)
-
-
-    # pageIndex
-    page_index = annotation_json.get('pageIndex', None)
-    if page_index is not None:
-        newAnnotation.page_index = page_index
-
-    marked_text = annotation_json.get('markedText', None)
-    if marked_text:
-        newAnnotation.marked_text = marked_text
-
-    modified_date = annotation_json.get('modifiedDate', None)
-    if modified_date:
-        newAnnotation.modified_date = modified_date
-
-    annotation_type = annotation_json.get('annotationType', None)
-    if annotation_type:
-        newAnnotation.annotation_type = annotation_type
-
-    newAnnotation.document = document
-
-    old_annot = check_duplicate_annotation(newAnnotation)
-    if old_annot is not False:
-
-        if update:
-            if old_annot.document is None:
-                old_annot.document = document
-                old_annot.save()
-
-        return
-
-    newAnnotation.save()
-
-    comment = annotation_json.get('comment', None)
-    if comment:
-        newComment: Comment = Comment()
-        newComment.content = comment
-        newComment.save()
-        newComment.annotations.add(newAnnotation)
-        newComment.save()
+                for old_comment in new_annotation.comments.all():
+                    isInNewComments = False
+                    for new_comment in new_comments:
+                        new_comment_id = new_comment.get('id', None)
+                        if old_comment.id == new_comment_id:
+                            isInNewComments = True
+                    if isInNewComments is False:
+                        old_comment.delete()
+            for new_comment in new_comments:
+                save_comment(new_comment, new_annotation)
+        else:
+            if annotation_id:
+                for old_comment in new_annotation.comments.all():
+                    old_comment.delete()
+        return new_annotation.id
+    except Exception as e:
+        print("Save Annotation Error: ", e)
+        raise
