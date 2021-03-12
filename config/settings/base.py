@@ -357,7 +357,7 @@ REST_FRAMEWORK = {
         # Any other renders
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 500
+    'PAGE_SIZE': 250
 
     # 'DEFAULT_PARSER_CLASSES': [
     #     # If you use MultiPartFormParser or FormParser, we also have a camel case version

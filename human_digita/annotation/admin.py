@@ -8,8 +8,7 @@ from django.utils.safestring import mark_safe
 
 from human_digita.annotation.admin_forms import AnnotationForm
 from human_digita.annotation.models import Annotation
-
-
+from human_digita.document.admin_actions import get_document_admin_link
 
 
 @admin.register(Annotation)
@@ -64,13 +63,7 @@ class AnnotationAdmin(admin.ModelAdmin):
 
     def document_link(self, obj: Annotation):
         doc = obj.document
-        display_text = "<a href={}>{}</a>".format(
-                reverse('admin:{}_{}_change'.format(doc._meta.app_label, doc._meta.model_name),
-                        args=(doc.pk,)),
-                doc.title)
-        if display_text:
-            return mark_safe(display_text)
-        return "-"
+        return get_document_admin_link(doc)
 
     def comment_links(self, obj: Annotation):
         comments = obj.comments.all()

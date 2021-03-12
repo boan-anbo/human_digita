@@ -69,3 +69,4 @@ def save_doc_info_to_document(docInfo, update=True) -> Document:
     except Exception as e:
         print(e)
         raise
+

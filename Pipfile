@@ -57,6 +57,7 @@ pysolr = "*"
 elasticsearch = "*"
 drf-haystack = "*"
 dal-admin-filters = "*"
+langdetect = "*"
 
 [dev-packages]
 

@@ -7,6 +7,8 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
     # title = indexes.CharField()
     id = indexes.CharField(indexed=False)
 
+    language = indexes.CharField(model_attr='language')
+
     text = indexes.CharField(document=True, model_attr='text')
     def get_model(self):
         """返回建立索引的模型类"""

@@ -2,6 +2,7 @@ from dal_admin_filters import AutocompleteFilter
 from django.contrib import admin
 
 # Register your models here.
+from human_digita.document.admin_actions import get_document_admin_link
 from human_digita.passage.admin_forms import PassageForm
 from human_digita.passage.models import Passage
 
@@ -15,16 +16,17 @@ from human_digita.passage.models import Passage
 class PassageAdmin(admin.ModelAdmin):
     search_fields = ['text', 'before_text', 'after_text']
     list_filter = [
-        'document'
+        'language',
     ]
     list_display = [
         'id',
         'page_index',
         'text',
-        'document',
+        'document_link',
         'created',
+
     ]
-    readonly_fields = ['id']
+    readonly_fields = ['id',         'document_link']
     form = PassageForm
 
     def get_queryset(self, request):
@@ -32,5 +34,8 @@ class PassageAdmin(admin.ModelAdmin):
         qs = qs.prefetch_related('document')
         return qs
 
+    def document_link(self, obj: Passage):
+        doc = obj.document
+        return get_document_admin_link(doc)
 
 
