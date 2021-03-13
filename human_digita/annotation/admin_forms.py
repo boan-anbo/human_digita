@@ -15,6 +15,7 @@ class AnnotationForm(forms.ModelForm):
 
         fields = ('__all__')
         widgets = {
+            'annotation_types': autocomplete.ModelSelect2Multiple(url='annotationtype-autocomplete'),
             'document': autocomplete.ModelSelect2(url='document-autocomplete'),
             'comments': autocomplete.ModelSelect2Multiple(url='comment-autocomplete'),
             'projects': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),

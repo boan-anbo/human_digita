@@ -24,7 +24,7 @@ def base65str_to_image_bytes(base65_str: str) -> bytes:
 # if there is old annotation, return it, otherwise return false
 def check_duplicate_annotation(new_annot: Annotation):
     try:
-        old_annots = Annotation.objects.filter(modified_date=new_annot.modified_date, annotation_type=new_annot.annotation_type)
+        old_annots = Annotation.objects.filter(modified_date=new_annot.modified_date)
         if old_annots.exists():
             return old_annots[0]
         else:
@@ -58,15 +58,22 @@ def save_annotation(annotation_json, document: Document=None, update=True) -> st
         if marked_text:
             new_annotation.marked_text = marked_text
 
+        keyterms_raw = annotation_json.get('keyTermsRaw', None)
+        if keyterms_raw:
+            if new_annotation.keyterms_raw and len(new_annotation) > 0:
+                new_annotation.keyterms_raw = new_annotation.keyterms_raw + ', ' + keyterms_raw
+            else:
+                new_annotation.keyterms_raw = keyterms_raw
+
         modified_date = annotation_json.get('modifiedDate', None)
         if modified_date:
             new_annotation.modified_date = modified_date
 
         # annotation type
 
-        annotation_type = annotation_json.get('annotationType', None)
-        if annotation_type:
-            new_annotation.annotation_type = annotation_type
+        # annotation_type = annotation_json.get('annotationType', None)
+        # if annotation_type:
+        #     new_annotation.annotation_type = annotation_type
 
         # importance:
         importance = annotation_json.get('importance', None)

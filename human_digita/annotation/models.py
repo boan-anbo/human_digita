@@ -45,4 +45,4 @@ class Annotation(ActivatorModel, TimeStampedModel, models.Model):
 
 
     def __str__(self):
-        return self.marked_text
+        return self.marked_text[0:25]

@@ -9,7 +9,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from human_digita.action.action_type_autocomplete_views import ActionAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
+from human_digita.annotation.annotation_autocomplete_views import AnnotationAutocomplete
+from human_digita.annotation_type.annotation_type_autocomplete_views import AnnotationTypeAutocomplete
 from human_digita.archive_item.archive_item_autocomplete_views import ArchiveItemAutocomplete
+from human_digita.artifact_type.artifact_type_autocomplete_views import ArtifactTypeAutocomplete
 from human_digita.comment.comment_autocomplete_views import CommentAutocomplete
 from human_digita.document.document_autocomplete_views import DocumentAutocomplete
 from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
@@ -43,6 +46,16 @@ url(
   r'^action-type-autocomplete/$',
   ActionAutocomplete.as_view(),
   name='action-type-autocomplete',
+),
+url(
+  r'^annotation-autocomplete/$',
+  AnnotationAutocomplete.as_view(),
+  name='annotation-autocomplete',
+),
+url(
+  r'^artifacttype-autocomplete/$',
+  ArtifactTypeAutocomplete.as_view(),
+  name='artifacttype-autocomplete',
 ),
 url(
   r'^place-autocomplete/$',
@@ -79,6 +92,11 @@ url(
   r'^archiveitem-autocomplete/$',
   ArchiveItemAutocomplete.as_view(),
   name='archiveitem-autocomplete',
+),
+url(
+  r'^annotationtype-autocomplete/$',
+  AnnotationTypeAutocomplete.as_view(),
+  name='annotationtype-autocomplete',
 )
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -93,6 +93,9 @@ THIRD_PARTY_APPS = [
 
     # haystack
     'haystack',
+
+    #db backup
+    'dbbackup',
 ]
 
 LOCAL_APPS = [
@@ -101,6 +104,8 @@ LOCAL_APPS = [
     "human_digita.actor.apps.ActorConfig",
     "human_digita.archive",
 "human_digita.archive_item",
+"human_digita.artifact",
+"human_digita.artifact_type",
 "human_digita.annotation_type",
 "human_digita.document",
 "human_digita.event.apps.EventConfig",
@@ -387,3 +392,14 @@ HAYSTACK_CONNECTIONS = {
     }
 HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
 # HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+#---------------------------------------------------------------
+# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+# DROPBOX_ROOT_PATH = r'C:\Users\Bo\Dropbox\apps\hm-django-dbbackup'
+# DBBACKUP_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+# DBBACKUP_STORAGE_OPTIONS = {
+#     'oauth2_access_token': 'dtWikxTr4xoAAAAAAAAAAXJTk6bGkz2Se_tzSpj0rTk9X89KfmtIknYytXk8mi4C',
+# }
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': 'C:/Users/Bo/Dropbox/apps/hm-django-dbbackup/'}

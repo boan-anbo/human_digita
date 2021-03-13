@@ -16,7 +16,6 @@ class AnnotationSerializerWithoutPassages(serializers.HyperlinkedModelSerializer
             'id',
             'marked_text',
             'modified_date',
-            'annotation_type',
             'page_index',
             'image_url',
             'importance',

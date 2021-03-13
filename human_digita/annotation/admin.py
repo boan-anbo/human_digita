@@ -15,8 +15,7 @@ from human_digita.passage.admin_actions import get_passage_links
 @admin.register(Annotation)
 class AnnotationAdmin(admin.ModelAdmin):
     list_filter = [
-        'annotation_types',
-        'document',
+        # 'annotation_types',
         'importance',
         'keyterms',
         'importance'
@@ -42,14 +41,17 @@ class AnnotationAdmin(admin.ModelAdmin):
         'document',
         'display_comments',
         'display_keyterms',
-        'marked_text'
+        'display_marked_text'
     ]
     form = AnnotationForm
 
     def get_queryset(self, request):
         qs = super(AnnotationAdmin, self).get_queryset(request)
-        qs = qs.prefetch_related('comments', 'document', 'keyterms', 'passage')
+        qs = qs.prefetch_related('comments', 'document', 'keyterms', 'passage', 'annotation_types', 'projects')
         return qs
+
+    def display_marked_text(self, obj):
+        return obj.marked_text[0:50]
 
     def image_preview(self, obj):
         return format_html('<img src="{0}" />'.format(obj.image.url))

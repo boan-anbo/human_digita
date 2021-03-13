@@ -58,6 +58,10 @@ elasticsearch = "*"
 drf-haystack = "*"
 dal-admin-filters = "*"
 langdetect = "*"
+django-dbbackup = "*"
+dropbox = "*"
+django-storages = "*"
+pypinyin = "*"
 
 [dev-packages]
 

@@ -29,7 +29,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
     # authentication_classes = []
 
     # queryset = Annotation.objects.all().order_by('created')
-    queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms', 'passage').all().order_by('created')
+    queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms', 'passage', 'annotation_types', 'projects').all().order_by('created')
     serializer_class = AnnotationSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter

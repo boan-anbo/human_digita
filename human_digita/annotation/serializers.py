@@ -13,13 +13,13 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
     passage = PassageSerializer(many=False)
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
+
     class Meta:
         model = Annotation
         fields = [
             'id',
             'marked_text',
             'modified_date',
-            'annotation_type',
             'page_index',
             'image_url',
             'importance',
