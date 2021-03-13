@@ -96,11 +96,12 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "human_digita.action.apps.ActionConfig",
-    "human_digita.action_type",
+    "human_digita.act",
+    "human_digita.action",
     "human_digita.actor.apps.ActorConfig",
     "human_digita.archive",
 "human_digita.archive_item",
+"human_digita.annotation_type",
 "human_digita.document",
 "human_digita.event.apps.EventConfig",
 "human_digita.institution",

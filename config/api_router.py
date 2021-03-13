@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from human_digita.act.views import ActViewSet
 from human_digita.annotation.views import AnnotationViewSet, AnnotationSearchViewSet
 from human_digita.archive_item.views import ArchiveItemViewSet
 from human_digita.document.views import DocumentViewSet, DocumentSearchViewSet
@@ -14,6 +15,8 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
+router.register("acts", ActViewSet)
+
 router.register("annotations", AnnotationViewSet)
 router.register("documents", DocumentViewSet)
 router.register("passages", PassageViewSet)

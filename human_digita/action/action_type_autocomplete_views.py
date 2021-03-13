@@ -1,12 +1,11 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from human_digita.action.models import Act
-from human_digita.action_type.models import Action
+from human_digita.action.models import Action
 from human_digita.actor.models import Actor
 
 
-class ActionTypeAutocomplete(autocomplete.Select2QuerySetView):
+class ActionAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
         # if not self.request.user.is_authenticated:

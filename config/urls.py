@@ -7,7 +7,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
-from human_digita.action_type.action_type_autocomplete_views import ActionTypeAutocomplete
+from human_digita.action.action_type_autocomplete_views import ActionAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
 from human_digita.archive_item.archive_item_autocomplete_views import ArchiveItemAutocomplete
 from human_digita.comment.comment_autocomplete_views import CommentAutocomplete
@@ -41,7 +41,7 @@ url(
 ),
 url(
   r'^action-type-autocomplete/$',
-  ActionTypeAutocomplete.as_view(),
+  ActionAutocomplete.as_view(),
   name='action-type-autocomplete',
 ),
 url(

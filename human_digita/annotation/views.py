@@ -120,6 +120,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
     @action(
         detail=False,
         methods=['post']

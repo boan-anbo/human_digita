@@ -15,7 +15,7 @@ from human_digita.passage.admin_actions import get_passage_links
 @admin.register(Annotation)
 class AnnotationAdmin(admin.ModelAdmin):
     list_filter = [
-        'annotation_type',
+        'annotation_types',
         'document',
         'importance',
         'keyterms',

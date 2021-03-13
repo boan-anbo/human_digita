@@ -3,7 +3,7 @@ import logging
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from human_digita.action.models import Act
+from human_digita.act.models import Act
 
 logger = logging.getLogger(__name__)
 
