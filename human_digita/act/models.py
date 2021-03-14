@@ -67,11 +67,11 @@ class Act(TimeStampedModel, ActivatorModel, models.Model):
     # start
     start_datetime_local = models.DateTimeField(blank=True, null=True)
     start_datetime_utc = models.DateTimeField(blank=True, null=True)
-    start_datetime_local_timezone =  TimeZoneField(default='UTC', choices_display='WITH_GMT_OFFSET', blank=True)
+    start_datetime_local_timezone =  TimeZoneField(default='UTC', blank=True)
     # end
     end_datetime_local = models.DateTimeField(blank=True, null=True)
     end_datetime_utc = models.DateTimeField(blank=True, null=True)
-    end_datetime_local_timezone =  TimeZoneField(default='UTC', choices_display='WITH_GMT_OFFSET', blank=True)
+    end_datetime_local_timezone =  TimeZoneField(default='UTC', blank=True)
 
     #sentence
     sentence = models.CharField(max_length=512, default='', blank=True)

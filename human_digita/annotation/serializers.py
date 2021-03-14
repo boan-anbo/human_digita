@@ -49,6 +49,7 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
 class AnnotationIndexSerializer(HaystackSerializer):
     # document = DocumentSerializer(read_only=True)  # 只读,不可以进行反序列化
     # object = AnnotationSerializer(many=False)
+
     class Meta:
         index_classes = [AnnotationIndex]  # 索引类的名称
         fields = ['id','marked_text', 'text']  # text 由索引类进行返回, object 由序列化类进行返回,第一个参数必须是text

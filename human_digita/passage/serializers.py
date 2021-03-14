@@ -19,7 +19,9 @@ class PassageSerializer(serializers.HyperlinkedModelSerializer):
             'annotations',
             'document',
             'language',
-            'last_used'
+            'last_used',
+            'modified',
+            'created'
         ]
 
 

@@ -15,6 +15,7 @@ from human_digita.document.serializers import DocumentSerializer
 
 class AnnotationSearchViewSet(HaystackViewSet):
     index_models = [Annotation]
+    # queryset = SearchQuerySet().order_by('document__title')[0]
     # queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms').all()
     serializer_class = AnnotationIndexSerializer
     filter_backends = [HaystackHighlightFilter]

@@ -402,6 +402,16 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # DBBACKUP_STORAGE_OPTIONS = {
 #     'oauth2_access_token': 'dtWikxTr4xoAAAAAAAAAAXJTk6bGkz2Se_tzSpj0rTk9X89KfmtIknYytXk8mi4C',
 # }
+from sys import platform
+if platform == "linux" or platform == "linux2":
+    # linux
+    pass
+elif platform == "darwin":
+    DBBACKUP_STORAGE_OPTIONS = {'location': '/Users/boan/Dropbox/Apps/hm-django-dbbackup/'}
 
+    # OS X
+elif platform == "win32":
+    DBBACKUP_STORAGE_OPTIONS = {'location': 'C:/Users/Bo/Dropbox/apps/hm-django-dbbackup/'}
+
+    # Windows...
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': 'C:/Users/Bo/Dropbox/apps/hm-django-dbbackup/'}

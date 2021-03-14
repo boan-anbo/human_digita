@@ -11,6 +11,8 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
 
     title = indexes.CharField(indexed=True)
 
+
+
     text = indexes.CharField(document=True, model_attr='text')
 
     page_index = indexes.IntegerField(model_attr='page_index', null=True)

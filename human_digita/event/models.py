@@ -12,7 +12,7 @@ class Event(TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     start_datetime_local = models.DateTimeField(blank=True, null=True)
     start_datetime_utc = models.DateTimeField(blank=True, null=True)
-    start_datetime_local_timezone =  TimeZoneField(default='UTC', choices_display='WITH_GMT_OFFSET')
+    start_datetime_local_timezone =  TimeZoneField(default='UTC')
 
     description = RichTextField(max_length=65535, blank=True)
 
