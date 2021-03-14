@@ -6,6 +6,8 @@ from django.db import models
 
 # Create your models here.
 from django.db.models import ManyToManyField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
@@ -46,3 +48,4 @@ class Annotation(ActivatorModel, TimeStampedModel, models.Model):
 
     def __str__(self):
         return self.marked_text[0:25]
+

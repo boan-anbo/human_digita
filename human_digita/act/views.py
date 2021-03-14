@@ -2,12 +2,13 @@
 from typing import Dict
 
 from django_filters import rest_framework as filters
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from human_digita.act.models import Act
 from human_digita.act.serializers import ActSerializer
-from human_digita.passage.models import Passage
+from human_digita.annotation.models import Annotation
 
 
 class ActViewSet(viewsets.ModelViewSet):
@@ -15,7 +16,7 @@ class ActViewSet(viewsets.ModelViewSet):
     # authentication_classes = []
 
     # queryset = Annotation.objects.all().order_by('created')
-    queryset = Act.objects.prefetch_related('passages').all().order_by('created')
+    queryset = Act.objects.prefetch_related('annotations').all().order_by('created')
     serializer_class = ActSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
@@ -25,12 +26,20 @@ class ActViewSet(viewsets.ModelViewSet):
         detail=False,
         methods=['post']
     )
-    def post_act(self, request):
-        acts = request.data.get('acts', None)
-        for act in acts:
-            save_act(act)
+    def post_acts(self, request):
+        try:
+            acts = request.data.get('acts', None)
+            added_acts = []
+            for act in acts:
+                added_act = save_act(act)
+                added_acts.append(added_act)
+            return Response(ActSerializer(added_acts, many=True).data, status=status.HTTP_200_OK )
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-def save_act(self, act_json: Dict):
+
+def save_act(act_json: Dict):
     id = act_json.get('id', None)
     act: Act
     if id:
@@ -41,8 +50,9 @@ def save_act(self, act_json: Dict):
     sentence_raw = act_json['sentenceRaw']
     act.sentence_raw = sentence_raw
 
-    keyterms_raw = act_json.get('keyTermsRaw', None)
-    act.keyterms_raw = keyterms_raw
+    keyterms_raw = act_json.get('keytermsRaw', None)
+    if keyterms_raw:
+        act.keyterms_raw = keyterms_raw
 
     start_year_local = act_json.get('startYearLocal', None)
     if start_year_local:
@@ -56,9 +66,18 @@ def save_act(self, act_json: Dict):
     if start_day_local:
         act.start_day_local = start_day_local
 
+    act.save()
 
-    passage_ids = act_json.get('passages', None)
-    if passage_ids:
-        passages = Passage.objects.filter(id__in=passage_ids)
-        for passage in passages:
-            return
+    annotations = act_json.get('annotations', None)
+    print("ANNOTATIONS UNDER ACT", annotations)
+    annotation_ids: [str] = []
+    for annot in annotations:
+        annot_id = annot.get('id')
+        annotation_ids.append(annot_id)
+    if annotation_ids:
+        annotations = Annotation.objects.filter(id__in=annotation_ids)
+        act.annotations.clear()
+        act.annotations.add(*annotations)
+
+    return act
+

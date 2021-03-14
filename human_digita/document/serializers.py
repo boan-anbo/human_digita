@@ -1,9 +1,7 @@
 from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
 
-from human_digita.annotation.models import Annotation
-from human_digita.archive_item.const import ArchiveItemTypes, ArchiveItemKeyTypes
-from human_digita.archive_item.serializers import ArchiveItemSerializer
+from human_digita.archive_item.const import ArchiveItemKeyTypes
 from human_digita.document.models import Document
 from human_digita.document.search_indexes import DocumentIndex
 

@@ -99,35 +99,37 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "human_digita.act",
-    "human_digita.action",
-    "human_digita.actor.apps.ActorConfig",
-    "human_digita.archive",
+"human_digita.act",
+"human_digita.act_type",
+"human_digita.action",
+"human_digita.actor.apps.ActorConfig",
+"human_digita.annotation",
+"human_digita.annotation_type",
+"human_digita.archive",
 "human_digita.archive_item",
 "human_digita.artifact",
 "human_digita.artifact_type",
-"human_digita.annotation_type",
+"human_digita.comment",
 "human_digita.document",
 "human_digita.event.apps.EventConfig",
+"human_digita.idea",
 "human_digita.institution",
 "human_digita.institution_type",
 "human_digita.interpretation",
+"human_digita.keyterm",
+"human_digita.location",
+"human_digita.manuscript_backup",
 "human_digita.narrative",
 "human_digita.object",
 "human_digita.organization",
 "human_digita.passage",
 "human_digita.person",
 "human_digita.place",
-"human_digita.location",
-"human_digita.manuscript_backup",
-
-"human_digita.users.apps.UsersConfig",
-"human_digita.comment",
-"human_digita.annotation",
-"human_digita.tag",
 "human_digita.project",
-"human_digita.keyterm",
-"human_digita.idea",
+
+"human_digita.tag",
+"human_digita.timeline",
+"human_digita.users.apps.UsersConfig",
 # Your stuff: custom apps go here
 
 ]
@@ -363,7 +365,7 @@ REST_FRAMEWORK = {
         # Any other renders
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 250
+    'PAGE_SIZE': 100
 
     # 'DEFAULT_PARSER_CLASSES': [
     #     # If you use MultiPartFormParser or FormParser, we also have a camel case version
@@ -391,7 +393,7 @@ HAYSTACK_CONNECTIONS = {
               },
     }
 HAYSTACK_ITERATOR_LOAD_PER_QUERY = 100
-# HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 #---------------------------------------------------------------
 # DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'

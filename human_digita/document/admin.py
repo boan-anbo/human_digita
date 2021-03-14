@@ -1,11 +1,7 @@
-from typing import cast
-
 from django.contrib import admin
-
 # Register your models here.
 from django_object_actions import DjangoObjectActions
 
-from human_digita.annotation.models import Annotation
 from human_digita.document.admin_forms import DocumentForm
 from human_digita.document.models import Document
 

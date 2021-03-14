@@ -7,6 +7,6 @@ from human_digita.project.models import Project
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    fields = ['title', 'description', 'keyterms', 'activate_date', 'deactivate_date']
-    list_display = ['id', 'title', 'description']
+    fields = ['name', 'description', 'keyterms', 'activate_date', 'deactivate_date']
+    list_display = ['id', 'name', 'description']
     form = ProjectForm

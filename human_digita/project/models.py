@@ -12,10 +12,10 @@ from human_digita.keyterm.models import Keyterm
 
 class Project( TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     description = RichTextField(max_length=65535, blank=True)
     keyterms = ManyToManyField(Keyterm, blank=True, related_name='projects')
 
 
     def __str__(self):
-        return self.title
+        return self.name

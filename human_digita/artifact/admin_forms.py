@@ -1,7 +1,6 @@
 from dal import autocomplete
 from django import forms
 
-from human_digita.annotation.models import Annotation
 from human_digita.artifact.models import Artifact
 
 

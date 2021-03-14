@@ -1,5 +1,4 @@
 from human_digita.document.models import Document
-from human_digita.location.models import Location
 from human_digita.passage.models import Passage
 
 def check_duplicate_passage(new_passage: Passage):

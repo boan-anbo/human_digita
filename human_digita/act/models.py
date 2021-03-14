@@ -8,6 +8,7 @@ from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 from timezone_field import TimeZoneField
 
+from human_digita.act_type.models import ActType
 from human_digita.action.models import Action
 from human_digita.actor.models import Actor
 from human_digita.annotation.models import Annotation
@@ -16,6 +17,7 @@ from human_digita.interpretation.models import Interpretation
 from human_digita.narrative.models import Narrative
 from human_digita.passage.models import Passage
 from human_digita.place.models import Place
+from human_digita.timeline.models import Timeline
 
 
 class Act(TimeStampedModel, ActivatorModel, models.Model):
@@ -27,14 +29,21 @@ class Act(TimeStampedModel, ActivatorModel, models.Model):
     keyterms_raw = models.CharField(max_length=1024, default='', blank=True)
     time_raw = models.CharField(max_length=256, default='', blank=True)
 
+
+
     start_year_local = models.IntegerField(blank=True, null=True)
     start_month_local = models.IntegerField(blank=True, null=True)
     start_day_local = models.IntegerField(blank=True, null=True)
     start_hour_local = models.IntegerField(blank=True, null=True)
 
+    #type. e.g. timeline. bio.
+    act_types = ManyToManyField(ActType, related_name='acts', blank=True)
 
     # place
     places=ManyToManyField(Place, related_name='acts', blank=True)
+
+    ## place
+    timelines=ManyToManyField(Timeline, related_name='acts', blank=True)
 
     # verb
     action = ManyToManyField(Action, related_name='acts', blank=True)
@@ -48,7 +57,7 @@ class Act(TimeStampedModel, ActivatorModel, models.Model):
     # my own or other's narratives. other's NARRATIVES. NARRATIVE differs from passages in that it gives a coherent narrative, while passages might be fragmentary factual informations.
     narratives = ManyToManyField(Narrative, blank=True)
     # passages = ManyToManyField(Passage, blank=True)
-    annotations = ManyToManyField(Annotation, blank=True)
+    annotations = ManyToManyField(Annotation, blank=True, related_name='acts')
     # interpretation differs from narratives in that it can be more than temporal rendering of what has happened. It could theorize etc.
     interpretations = ManyToManyField(Interpretation, blank=True)
 

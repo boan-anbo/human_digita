@@ -2,6 +2,7 @@ from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
 from rest_framework.relations import StringRelatedField
 
+from human_digita.act.serializers import ActSerializer
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
@@ -13,6 +14,7 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
     passage = PassageSerializer(many=False)
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
+    acts = ActSerializer(many=True, read_only=True)
 
     class Meta:
         model = Annotation
@@ -26,7 +28,8 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             'comments',
             'comment',
             'passage',
-            'keyterms_raw'
+            'keyterms_raw',
+            'acts'
               ]
 
 

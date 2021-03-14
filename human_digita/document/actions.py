@@ -1,8 +1,6 @@
-from human_digita.archive.const import ArchiveTypes
 from human_digita.archive_item.actions import check_duplicate_archive_item
 from human_digita.archive_item.const import ArchiveItemKeyTypes
 from human_digita.archive_item.models import ArchiveItem
-from human_digita.document.const import DocumentType
 from human_digita.document.models import Document
 
 # return false is there is no duplicate, return the existing document if there is not

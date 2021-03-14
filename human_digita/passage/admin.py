@@ -1,10 +1,10 @@
-from dal_admin_filters import AutocompleteFilter
 from django.contrib import admin
 
 # Register your models here.
 from human_digita.document.admin_actions import get_document_admin_link
 from human_digita.passage.admin_forms import PassageForm
 from human_digita.passage.models import Passage
+
 
 # class DocumentFilter(AutocompleteFilter):
 #     title = 'Document Title'                    # filter's title

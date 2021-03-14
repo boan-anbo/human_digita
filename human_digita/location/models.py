@@ -1,9 +1,7 @@
 import uuid
 
 from django.db import models
-
 # Create your models here.
-from django.db.models import OneToOneField
 from model_utils.models import TimeStampedModel
 
 from human_digita.document.models import Document

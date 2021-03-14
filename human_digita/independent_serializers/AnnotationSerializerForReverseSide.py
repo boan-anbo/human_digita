@@ -6,7 +6,7 @@ from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
 
 
-class AnnotationSerializerWithoutPassages(serializers.HyperlinkedModelSerializer):
+class AnnotationSerializerForReverseSide(serializers.HyperlinkedModelSerializer):
     image_url = serializers.SerializerMethodField()
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)

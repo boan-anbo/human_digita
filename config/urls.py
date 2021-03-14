@@ -7,6 +7,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from human_digita.act_type.act_type_autocomplete_views import ActTypeAutocomplete
 from human_digita.action.action_type_autocomplete_views import ActionAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
 from human_digita.annotation.annotation_autocomplete_views import AnnotationAutocomplete
@@ -19,6 +20,7 @@ from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
 from human_digita.project.project_autocomplete_views import ProjectAutocomplete
+from human_digita.timeline.timeline_autocomplete_views import TimelineAutocomplete
 
 urlpatterns = [
     # search view
@@ -41,6 +43,11 @@ url(
   r'^actor-autocomplete/$',
   ActorAutocomplete.as_view(),
   name='actor-autocomplete',
+),
+url(
+  r'^act-type-autocomplete/$',
+  ActTypeAutocomplete.as_view(),
+  name='act-type-autocomplete',
 ),
 url(
   r'^action-type-autocomplete/$',
@@ -84,6 +91,12 @@ url(
   name='project-autocomplete',
 ),
 url(
+  r'^timeline-autocomplete/$',
+  TimelineAutocomplete.as_view(),
+  name='timeline-autocomplete',
+),
+
+                  url(
   r'^keyterm-autocomplete/$',
   KeytermAutocomplete.as_view(),
   name='keyterm-autocomplete',

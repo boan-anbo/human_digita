@@ -1,7 +1,5 @@
-from django.urls import reverse
-
 from django.contrib import admin
-
+from django.urls import reverse
 # Register your models here.
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -12,8 +10,14 @@ from human_digita.document.admin_actions import get_document_admin_link
 from human_digita.passage.admin_actions import get_passage_links
 
 
+class ActInline(admin.TabularInline):
+    model = Annotation.acts.through
+    show_change_link = True
+    # form = ActFormInline
+
 @admin.register(Annotation)
 class AnnotationAdmin(admin.ModelAdmin):
+    inlines = [ActInline]
     list_filter = [
         # 'annotation_types',
         'importance',
@@ -38,11 +42,12 @@ class AnnotationAdmin(admin.ModelAdmin):
         'id',
         'keyterms_raw',
         'importance',
+        'display_marked_text',
         'document',
         'display_comments',
         'display_keyterms',
-        'display_marked_text'
     ]
+    # fields = ['acts']
     form = AnnotationForm
 
     def get_queryset(self, request):
@@ -85,6 +90,7 @@ class AnnotationAdmin(admin.ModelAdmin):
                 child for child in links
             ]))
         return "-"
+
     def passage_links(self, obj: Annotation):
         passages = [obj.passage]
         return get_passage_links(passages)

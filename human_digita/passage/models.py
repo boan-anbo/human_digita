@@ -1,9 +1,11 @@
 import uuid
+from datetime import datetime
 
 from ckeditor.fields import RichTextField
 from django.db import models
 # Create your models here.
-from django.db.models import OneToOneField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
@@ -22,5 +24,11 @@ class Passage(TimeStampedModel, models.Model):
     # location = OneToOneField(Location, on_delete=models.SET_NULL, null=True, related_name='passage')
     document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='passages')
     language = models.CharField(max_length=120, choices=LanguageTypes.choices, default=LanguageTypes.UNKNOWN)
+    last_used = models.DateTimeField(blank=True, null=True)
     def __str__(self):
         return self.text[0:20]
+
+
+@receiver(pre_save, sender=Passage)
+def update_passage_last_used(sender, instance: Passage, **kwargs):
+    instance.last_used = datetime.now()

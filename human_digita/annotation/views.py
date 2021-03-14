@@ -1,9 +1,7 @@
 from django_filters import rest_framework as filters
-
 # Create your views here.
 from drf_haystack.filters import HaystackHighlightFilter
 from drf_haystack.viewsets import HaystackViewSet
-from haystack.query import SearchQuerySet
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -29,7 +27,15 @@ class AnnotationViewSet(viewsets.ModelViewSet):
     # authentication_classes = []
 
     # queryset = Annotation.objects.all().order_by('created')
-    queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms', 'passage', 'annotation_types', 'projects').all().order_by('created')
+    queryset = Annotation.objects.prefetch_related(
+        'comments',
+        'document',
+        'keyterms',
+        'passage',
+        'annotation_types',
+        'acts',
+        'projects'
+    ).all().order_by('created')
     serializer_class = AnnotationSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
@@ -41,7 +47,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         methods=['get']
     )
     def get_standard_annotation_formats(self, request):
-        annotations = self.get_queryset().prefetch_related('document__archive_item')
+        annotations = self.get_queryset()
         # annotations = self.get_queryset()
         response = []
         for annot in annotations:
@@ -64,7 +70,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         methods=['get']
     )
     def get_standard_annotation_format(self, request, pk=None):
-        annotation = self.get_queryset().prefetch_related('document__archive_item', 'passage').get(pk=pk)
+        annotation = Annotation.objects.get(pk=pk)
         # annotations = self.get_queryset()
         # response =
 

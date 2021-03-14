@@ -1,9 +1,8 @@
 # Create your views here.
+from django_filters import rest_framework as filters
 from drf_haystack.filters import HaystackHighlightFilter
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework import viewsets, status
-
-from django_filters import rest_framework as filters
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response

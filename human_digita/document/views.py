@@ -1,6 +1,4 @@
 # Create your views here.
-import json
-import logging
 
 from django_filters import rest_framework as filters
 from drf_haystack.viewsets import HaystackViewSet
@@ -8,10 +6,8 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from human_digita.annotation.actions import save_annotation
 from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
-from human_digita.document.search_indexes import DocumentIndex
 from human_digita.document.serializers import DocumentSerializer, DocumentIndexSerializer
 
 
