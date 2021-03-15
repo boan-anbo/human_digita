@@ -10,7 +10,7 @@ class ArtifactAdmin(admin.ModelAdmin):
     search_fields = ['name', 'name_cn']
     form = ArtifactForm
     ordering = ['artifact_types', 'name', 'name_cn']
-    list_display = ['id', 'display_artifact_types', 'name', 'name_cn']
+    list_display = ['id', 'display_artifact_types', 'name', 'name_cn', 'name_alt']
     readonly_fields = ['display_artifact_types']
 
     def display_artifact_types(self, obj: Artifact):

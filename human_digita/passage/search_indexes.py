@@ -21,6 +21,8 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
     annotations_count = indexes.IntegerField(indexed=True)
 
 
+
+
     def get_model(self):
         """返回建立索引的模型类"""
         return Passage

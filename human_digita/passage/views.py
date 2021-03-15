@@ -1,5 +1,6 @@
 # Create your views here.
 from django_filters import rest_framework as filters
+from rest_framework.filters import OrderingFilter
 from drf_haystack.filters import HaystackHighlightFilter
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework import viewsets, status
@@ -15,11 +16,14 @@ from human_digita.passage.serializers import PassageSerializer, PassageIndexSeri
 
 class PassageSearchViewSet(HaystackViewSet):
     index_models = [Passage]
-    # queryset = Annotation.objects.prefetch_related('comments', 'document', 'keyterms').all()
+
+
     serializer_class = PassageIndexSerializer
-    filter_backends = [HaystackHighlightFilter]
+    filter_backends = [OrderingFilter, HaystackHighlightFilter]
     pagination_class = PageNumberPagination
     permission_classes = []
+    ordering_fields = ['title', 'page_index']
+    ordering = ['title', 'page_index']
 
 
 class PassageViewSet(viewsets.ModelViewSet):
@@ -27,6 +31,7 @@ class PassageViewSet(viewsets.ModelViewSet):
     serializer_class = PassageSerializer
     filter_backends = [filters.DjangoFilterBackend]
     permission_classes = []
+
 
     @action(
         detail=False,

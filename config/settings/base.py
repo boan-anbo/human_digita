@@ -110,7 +110,9 @@ LOCAL_APPS = [
 "human_digita.artifact",
 "human_digita.artifact_type",
 "human_digita.comment",
+"human_digita.debatable",
 "human_digita.document",
+"human_digita.knowledge_domain",
 "human_digita.event.apps.EventConfig",
 "human_digita.idea",
 "human_digita.institution",
@@ -121,16 +123,18 @@ LOCAL_APPS = [
 "human_digita.manuscript_backup",
 "human_digita.narrative",
 "human_digita.object",
+"human_digita.opinion",
 "human_digita.organization",
 "human_digita.passage",
 "human_digita.person",
+"human_digita.point",
 "human_digita.place",
 "human_digita.project",
-
+"human_digita.question",
 "human_digita.tag",
 "human_digita.timeline",
+"human_digita.topic",
 "human_digita.users.apps.UsersConfig",
-# Your stuff: custom apps go here
 
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

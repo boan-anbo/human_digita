@@ -17,5 +17,6 @@ class ArtifactForm(forms.ModelForm):
         widgets = {
             'artifact_types': autocomplete.ModelSelect2Multiple(url='artifacttype-autocomplete'),
             'annotations': autocomplete.ModelSelect2Multiple(url='annotation-autocomplete'),
+            'documents': autocomplete.ModelSelect2Multiple(url='document-autocomplete'),
         }
 
