@@ -12,14 +12,13 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
     title = indexes.CharField(indexed=True)
 
 
-
     text = indexes.CharField(document=True, model_attr='text')
 
     page_index = indexes.IntegerField(model_attr='page_index', null=True)
 
     last_used = indexes.DateTimeField(model_attr='last_used', null=True)
 
-    annotations_count = indexes.IntegerField(indexed=False)
+    annotations_count = indexes.IntegerField(indexed=True)
 
 
     def get_model(self):
@@ -43,6 +42,6 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
         if obj.annotations.exists():
             return obj.annotations.count()
         else:
-            return None
+            return 0
     # def prepare_text(self, obj):
     #     return obj.marked_text
