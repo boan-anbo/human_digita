@@ -6,6 +6,18 @@ from human_digita.independent_serializers.AnnotationSerializerForReverseSide imp
 from human_digita.passage.models import Passage
 from human_digita.passage.search_indexes import PassageIndex
 
+class PassageSerializerNoChildren(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Passage
+        fields = [
+            'id',
+            'text',
+            'page_index',
+            'language',
+            'last_used',
+            'modified',
+            'created'
+        ]
 
 class PassageSerializer(serializers.HyperlinkedModelSerializer):
     document = DocumentSerializer(many=False, read_only=True)

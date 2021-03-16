@@ -2,19 +2,23 @@ from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
 from rest_framework.relations import StringRelatedField
 
-from human_digita.act.serializers import ActSerializer
+from human_digita.act.serializers import ActSerializer, ActSerializerNoChildren
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
+from human_digita.passage.serializers import PassageSerializerNoChildren
 
 
 class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
     from human_digita.passage.serializers import PassageSerializer
     image_url = serializers.SerializerMethodField()
-    passage = PassageSerializer(many=False)
+    passage = PassageSerializerNoChildren(many=False)
+    # passage = PassageSerializer(many=False)
+
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
-    acts = ActSerializer(many=True, read_only=True)
+    acts = ActSerializerNoChildren(many=True, read_only=True)
+    # acts = ActSerializer(many=True, read_only=True)
 
     class Meta:
         model = Annotation
@@ -40,6 +44,7 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
                 return self.context['request'].build_absolute_uri(obj.image.url)
             else:
                 return None
+        return ''
     def get_comment(self, obj):
         return ";\n ".join([
             child.__str__() for child in obj.comments.all()

@@ -1,4 +1,3 @@
-# Create your views here.
 
 from django_filters import rest_framework as filters
 from drf_haystack.viewsets import HaystackViewSet
@@ -6,9 +5,13 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from human_digita.annotation.actions import save_annotation
 from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
+from human_digita.document.search_indexes import DocumentIndex
 from human_digita.document.serializers import DocumentSerializer, DocumentIndexSerializer
+from human_digita.passage.models import Passage
+from human_digita.passage.serializers import PassageSerializer
 
 
 class DocumentSearchViewSet(HaystackViewSet):
@@ -73,3 +76,24 @@ class DocumentViewSet(viewsets.ModelViewSet):
         except Exception as e:
             print(e)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+    # -1 pageindex is the last page.
+    @action(
+        detail=True,
+        methods=['get'],
+        url_path='(?P<page_index>[^/.]+)'
+    )
+    def get_document_page(self, request, page_index=None, pk=None):
+        try:
+            document = Document.objects.get(pk=pk)
+            str = None
+            last_index = int(document.pages - 1)
+            if int(page_index) == -1:
+                str = PassageSerializer(document.passages.filter(page_index=last_index), many=True).data
+            else:
+                str = PassageSerializer(document.passages.filter(page_index=page_index), many=True).data
+            print(str)
+            return Response(str, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)

@@ -3,6 +3,20 @@ from rest_framework import serializers
 from human_digita.act.models import Act
 from human_digita.independent_serializers.AnnotationSerializerForReverseSide import AnnotationSerializerForReverseSide
 
+class ActSerializerNoChildren(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Act
+        fields = [
+            'id',
+            'sentence_raw',
+            'start_year_local',
+            'start_month_local',
+            'start_day_local',
+            'keyterms_raw',
+            'modified',
+            'created'
+              ]
+
 
 class ActSerializer(serializers.HyperlinkedModelSerializer):
     # from human_digita.passage.serializers import PassageSerializer

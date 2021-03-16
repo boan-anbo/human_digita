@@ -7,6 +7,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from human_digita.act.act_autocomplete_views import ActAutocomplete
 from human_digita.act_type.act_type_autocomplete_views import ActTypeAutocomplete
 from human_digita.action.action_type_autocomplete_views import ActionAutocomplete
 from human_digita.actor.actor_autocomplete_views import ActorAutocomplete
@@ -23,6 +24,7 @@ from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
 from human_digita.knowledge_domain.debatable_autocomplete_views import KnowledgeDomainAutocomplete
 from human_digita.opinion.opinion_autocomplete_views import OpinionAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
+from human_digita.person.person_autocomplete_views import PersonAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
 from human_digita.point.debatable_autocomplete_views import PointAutocomplete
 from human_digita.project.project_autocomplete_views import ProjectAutocomplete
@@ -61,6 +63,11 @@ url(
   r'^actor-autocomplete/$',
   ActorAutocomplete.as_view(),
   name='actor-autocomplete',
+),
+url(
+  r'^act-autocomplete/$',
+  ActAutocomplete.as_view(),
+  name='act-autocomplete',
 ),
 url(
   r'^act-type-autocomplete/$',
@@ -145,9 +152,19 @@ url(
   name='opinion-autocomplete',
 ),
 url(
+  r'^person-autocomplete/$',
+  PersonAutocomplete.as_view(),
+  name='person-autocomplete',
+),
+url(
   r'^point-autocomplete/$',
   PointAutocomplete.as_view(),
   name='point-autocomplete',
+),
+url(
+  r'^project-autocomplete/$',
+  ProjectAutocomplete.as_view(),
+  name='project-autocomplete',
 ),
 url(
   r'^topic-autocomplete/$',

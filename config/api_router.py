@@ -8,6 +8,7 @@ from human_digita.document.views import DocumentViewSet, DocumentSearchViewSet
 from human_digita.idea.views import IdeaViewSet
 from human_digita.manuscript_backup.views import ManuscriptBackupViewSet
 from human_digita.passage.views import PassageViewSet, PassageSearchViewSet
+from human_digita.person.views import PersonViewSet
 from human_digita.point.views import PointViewSet
 from human_digita.question.views import QuestionViewSet
 from human_digita.users.api.views import UserViewSet
@@ -27,6 +28,8 @@ router.register("ideas", IdeaViewSet)
 router.register("manuscriptbackups", ManuscriptBackupViewSet)
 router.register("passage-search", PassageSearchViewSet, basename="passage-search")
 router.register("passages", PassageViewSet)
+router.register("people", PersonViewSet)
+
 router.register("points", PointViewSet)
 router.register("questions", QuestionViewSet)
 router.register("users", UserViewSet)

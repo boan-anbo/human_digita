@@ -13,6 +13,6 @@ class ProjectAutocomplete(autocomplete.Select2QuerySetView):
         qs = Project.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(title__icontains=self.q)|Q(description__icontains=self.q))
+            qs = qs.filter(Q(name__icontains=self.q)|Q(note__icontains=self.q))
 
         return qs
