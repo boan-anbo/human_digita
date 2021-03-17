@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 from django.db import models
 # Create your models here.
 from django.db.models import ManyToManyField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
@@ -29,5 +31,10 @@ class Document(TimeStampedModel, models.Model):
     pages = models.IntegerField(blank=True, null=True)
     keyterms = ManyToManyField(Keyterm, related_name='documents', blank=True)
     projects = ManyToManyField(Project, related_name='documents', blank=True)
+
+
+
     def __str__(self):
         return self.title
+
+

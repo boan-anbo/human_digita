@@ -8,3 +8,4 @@ class ArchiveItemTypes(models.TextChoices):
 
 class ArchiveItemKeyTypes(models.TextChoices):
     CITE_KEY = 'CITE_KEY', 'Cite Key'
+    URL = 'URL', 'Url'

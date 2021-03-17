@@ -1,3 +1,4 @@
+import string
 
 from django_filters import rest_framework as filters
 from drf_haystack.viewsets import HaystackViewSet
@@ -6,12 +7,15 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from human_digita.annotation.actions import save_annotation
+from human_digita.archive_item.const import ArchiveItemKeyTypes
+from human_digita.archive_item.models import ArchiveItem
 from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
 from human_digita.document.search_indexes import DocumentIndex
 from human_digita.document.serializers import DocumentSerializer, DocumentIndexSerializer
 from human_digita.passage.models import Passage
 from human_digita.passage.serializers import PassageSerializer
+from scripts.get_web_page import get_webpage_content_and_title
 
 
 class DocumentSearchViewSet(HaystackViewSet):
@@ -41,6 +45,49 @@ class DocumentViewSet(viewsets.ModelViewSet):
     #     leads_payload = AnnotationSerializer(annotations, many=True).data
     #
     #     return Response(leads_payload, status=status.HTTP_200_OK)
+
+    @action(
+        detail=False,
+        methods=['post']
+    )
+    def post_webpage(self, request):
+        url = request.data.get('url')
+        result = get_webpage_content_and_title(url)
+        title = result['title']
+        content = result['content']
+        passages = [content[i:i + 2000] for i in range(0, len(content), 2000)]
+
+        if len(passages) == 0:
+            raise
+
+        print(title)
+        print(content)
+        new_document = Document()
+        new_document.pages = len(passages)
+        new_document.title = title
+
+        new_document.save()
+
+        new_archive_item = ArchiveItem()
+        new_archive_item.title = title
+        new_archive_item.file_path = url
+        new_archive_item.file_name = title
+        new_archive_item.key_type = ArchiveItemKeyTypes.URL
+        new_archive_item.save()
+
+        new_document.archive_item = new_archive_item
+        new_document.save()
+
+        count = 0
+        for passage in passages:
+            new_passage = Passage()
+            new_passage.page_index = count
+            new_passage.text = passage
+
+            new_passage.document = new_document
+            new_passage.save()
+            count += 1
+        return Response(DocumentSerializer(new_document, many=False).data, status=status.HTTP_200_OK)
 
     @action(
         detail=False,
@@ -97,3 +144,4 @@ class DocumentViewSet(viewsets.ModelViewSet):
             return Response(str, status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
