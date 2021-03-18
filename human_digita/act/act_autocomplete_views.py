@@ -2,7 +2,6 @@ from dal import autocomplete
 from django.db.models import Q
 
 from human_digita.act.models import Act
-from human_digita.action.models import Action
 
 
 class ActAutocomplete(autocomplete.Select2QuerySetView):

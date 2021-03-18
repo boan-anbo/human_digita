@@ -29,7 +29,7 @@ router.register("manuscriptbackups", ManuscriptBackupViewSet)
 router.register("passage-search", PassageSearchViewSet, basename="passage-search")
 router.register("passages", PassageViewSet)
 router.register("people", PersonViewSet)
-
+router.register("pictures", PersonViewSet)
 router.register("points", PointViewSet)
 router.register("questions", QuestionViewSet)
 router.register("users", UserViewSet)

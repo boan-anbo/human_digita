@@ -42,8 +42,8 @@ def save_doc_info_to_document(docInfo, update=True) -> Document:
         new_archive_item.title = file_name
         new_archive_item.file_name = file_name
         new_archive_item.file_path = file_path
-        new_archive_item.modified_date = modified_date
-        new_archive_item.created_date = created_date
+        new_archive_item.file_modified_date = modified_date
+        new_archive_item.file_created_date = created_date
         if cite_key:
             new_archive_item.key = cite_key
             new_archive_item.key_type = ArchiveItemKeyTypes.CITE_KEY

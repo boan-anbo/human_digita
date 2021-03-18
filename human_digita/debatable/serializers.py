@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from human_digita.comment.models import Comment
 from human_digita.debatable.models import Debatable
 
 

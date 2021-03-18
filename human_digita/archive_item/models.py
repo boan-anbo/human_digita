@@ -2,7 +2,6 @@ import uuid
 
 from ckeditor.fields import RichTextField
 from django.db import models
-
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
@@ -17,19 +16,23 @@ class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=200, choices=ArchiveItemTypes.choices, default=ArchiveItemTypes.DOCUMENT)
 
+    title = models.CharField(max_length=2000, blank=False)
 
     # three ways to identify an entry: title, file path, or identifier
     key = models.CharField(max_length=2000, blank=True) # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
     key_type = models.CharField(max_length=200, choices=ArchiveItemKeyTypes.choices, default=ArchiveItemKeyTypes.CITE_KEY)
-    file_path = models.CharField(max_length=3000, blank=True)  # e.g. unique identifier in the archive, like Zotero id or unique archive index or absolute path.
+    file_path = models.CharField(max_length=3000, blank=True)
+    file_url = models.CharField(max_length=3000, blank=True)
     file_name = models.CharField(max_length=1000, blank=True)
-    title = models.CharField(max_length=2000, blank=False)
     # description of the archive entry
     description = RichTextField(max_length=2000, blank=True)
 
-    modified_date = models.DateTimeField(blank=True, null=True)
-    created_date = models.DateTimeField(blank=True, null=True)
+    file_modified_date = models.DateTimeField(blank=True, null=True)
+    file_created_date = models.DateTimeField(blank=True, null=True)
 
+    image = models.ImageField(blank=True)
+    image_source_url = models.CharField(max_length=2046, blank=True)
+    note = RichTextField(max_length=65535, blank=True)
 
 
     archive = models.ForeignKey(

@@ -2,7 +2,6 @@ import uuid
 
 from ckeditor.fields import RichTextField
 from django.db import models
-
 # Create your models here.
 from django_extensions.db.models import TimeStampedModel, ActivatorModel
 

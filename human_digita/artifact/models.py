@@ -10,6 +10,7 @@ from model_utils.models import TimeStampedModel
 from human_digita.annotation.models import Annotation
 from human_digita.artifact_type.models import ArtifactType
 from human_digita.document.models import Document
+from human_digita.picture.models import Picture
 from human_digita.project.models import Project
 
 
@@ -22,6 +23,7 @@ class Artifact(TimeStampedModel, ActivatorModel, models.Model):
     artifact_types = ManyToManyField(ArtifactType, related_name='artifacts', blank=True)
     annotations = ManyToManyField(Annotation, related_name='artifacts', blank=True)
     documents = ManyToManyField(Document, related_name='artifacts', blank=True)
+    pictures = ManyToManyField(Picture, related_name='artifacts', blank=True)
     note = RichTextField(max_length=65535, default='', blank=True)
 
     def __str__(self):

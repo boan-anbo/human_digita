@@ -18,5 +18,6 @@ class ArtifactForm(forms.ModelForm):
             'artifact_types': autocomplete.ModelSelect2Multiple(url='artifacttype-autocomplete'),
             'annotations': autocomplete.ModelSelect2Multiple(url='annotation-autocomplete'),
             'documents': autocomplete.ModelSelect2Multiple(url='document-autocomplete'),
+            'pictures': autocomplete.ModelSelect2Multiple(url='picture-autocomplete'),
         }
 

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from human_digita.act.models import Act
 from human_digita.independent_serializers.AnnotationSerializerForReverseSide import AnnotationSerializerForReverseSide
 
+
 class ActSerializerNoChildren(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Act

@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from human_digita.annotation.serializers import AnnotationSerializer
 from human_digita.person.models import Person
-from human_digita.project.serializers import ProjectSerializer
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):

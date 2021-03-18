@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
-
-
 # one must have registered admin to have the add button on its related model
 from human_digita.point.admin_forms import PointForm
 from human_digita.point.models import Point
 from human_digita.project.admin_actions import get_project_links
+
+
+# Register your models here.
 
 
 @admin.register(Point)

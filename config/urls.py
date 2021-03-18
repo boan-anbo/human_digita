@@ -25,6 +25,7 @@ from human_digita.knowledge_domain.debatable_autocomplete_views import Knowledge
 from human_digita.opinion.opinion_autocomplete_views import OpinionAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
 from human_digita.person.person_autocomplete_views import PersonAutocomplete
+from human_digita.picture.picture_autocomplete_views import PictureAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
 from human_digita.point.debatable_autocomplete_views import PointAutocomplete
 from human_digita.project.project_autocomplete_views import ProjectAutocomplete
@@ -155,6 +156,11 @@ url(
   r'^person-autocomplete/$',
   PersonAutocomplete.as_view(),
   name='person-autocomplete',
+),
+url(
+  r'^picture-autocomplete/$',
+  PictureAutocomplete.as_view(),
+  name='picture-autocomplete',
 ),
 url(
   r'^point-autocomplete/$',

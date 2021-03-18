@@ -13,6 +13,12 @@ class ArchiveItemAutocomplete(autocomplete.Select2QuerySetView):
         qs = ArchiveItem.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(title__icontains=self.q)|Q(key_type__icontains=self.q)|Q(description_icontains=self.q))
+            qs = qs.filter(
+                Q(title__icontains=self.q)|
+                Q(key_type__icontains=self.q)|
+                Q(note__icontains=self.q) |
+                Q(file_name__icontains=self.q) |
+                Q(description__icontains=self.q)
+            )
 
         return qs

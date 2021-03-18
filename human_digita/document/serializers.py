@@ -10,14 +10,14 @@ class DocumentSerializer(serializers.HyperlinkedModelSerializer):
     file_path = serializers.CharField(source='archive_item.file_path')
     file_name = serializers.CharField(source='archive_item.file_name')
     cite_key = serializers.SerializerMethodField()
-    created_date = serializers.DateTimeField(source='archive_item.created_date')
-    modified_date = serializers.DateTimeField(source='archive_item.modified_date')
+    file_created_date = serializers.DateTimeField(source='archive_item.file_created_date')
+    file_modified_date = serializers.DateTimeField(source='archive_item.file_modified_date')
     class Meta:
         model = Document
         fields = [
             'id',
-            'modified_date',
-            'created_date',
+            'file_modified_date',
+            'file_created_date',
             'title',
             'cite_key',
             'pages',

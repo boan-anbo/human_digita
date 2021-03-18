@@ -3,6 +3,7 @@ from django import forms
 
 from human_digita.annotation.models import Annotation
 
+
 class ActFormInline(forms.ModelForm):
         # comments = forms.ModelMultipleChoiceField(
         #     Comment.objects.all(),

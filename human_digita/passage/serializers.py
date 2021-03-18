@@ -6,6 +6,7 @@ from human_digita.independent_serializers.AnnotationSerializerForReverseSide imp
 from human_digita.passage.models import Passage
 from human_digita.passage.search_indexes import PassageIndex
 
+
 class PassageSerializerNoChildren(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Passage

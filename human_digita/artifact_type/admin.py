@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from human_digita.artifact.models import Artifact
 from human_digita.artifact_type.models import ArtifactType
 
 

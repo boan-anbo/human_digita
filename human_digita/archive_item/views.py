@@ -1,9 +1,5 @@
 import os
-import subprocess
-import sys
 import webbrowser
-
-from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets, status

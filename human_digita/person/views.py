@@ -1,6 +1,6 @@
 # Create your views here.
-from rest_framework import viewsets
 from django_filters import rest_framework as filters
+from rest_framework import viewsets
 
 from human_digita.person.models import Person
 from human_digita.person.serializers import PersonSerializer

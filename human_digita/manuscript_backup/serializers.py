@@ -1,7 +1,5 @@
 from rest_framework import serializers
 
-from human_digita.annotation.models import Annotation
-from human_digita.comment.serializers import CommentSerializer
 from human_digita.manuscript_backup.models import ManuscriptBackup
 
 

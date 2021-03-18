@@ -13,6 +13,7 @@ from human_digita.common.const import LanguageTypes
 from human_digita.document.models import Document
 from human_digita.event.models import Event
 from human_digita.location.models import Location
+from human_digita.picture.models import Picture
 from util_functions.detect_language import detect_language
 
 
@@ -24,8 +25,10 @@ class Passage(TimeStampedModel, models.Model):
     page_index = models.IntegerField(null=True,blank=True)
     # location = OneToOneField(Location, on_delete=models.SET_NULL, null=True, related_name='passage')
     document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='passages')
+    pictures = models.ManyToManyField(Picture, blank=True)
     language = models.CharField(max_length=120, choices=LanguageTypes.choices, default=LanguageTypes.UNKNOWN)
     last_used = models.DateTimeField(blank=True, null=True)
+
     def __str__(self):
         return self.text[0:20]
 

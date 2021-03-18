@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
-
-
 # one must have registered admin to have the add button on its related model
 from human_digita.idea.admin_forms import IdeaForm
 from human_digita.idea.models import Idea
 from human_digita.project.admin_actions import get_project_links
+
+
+# Register your models here.
 
 
 @admin.register(Idea)

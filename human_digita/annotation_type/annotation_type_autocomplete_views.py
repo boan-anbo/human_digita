@@ -2,7 +2,6 @@ from dal import autocomplete
 from django.db.models import Q
 
 from human_digita.annotation_type.models import AnnotationType
-from human_digita.archive_item.models import ArchiveItem
 
 
 class AnnotationTypeAutocomplete(autocomplete.Select2QuerySetView):

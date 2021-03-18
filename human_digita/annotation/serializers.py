@@ -1,8 +1,7 @@
 from drf_haystack.serializers import HaystackSerializer
 from rest_framework import serializers
-from rest_framework.relations import StringRelatedField
 
-from human_digita.act.serializers import ActSerializer, ActSerializerNoChildren
+from human_digita.act.serializers import ActSerializerNoChildren
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
@@ -10,7 +9,6 @@ from human_digita.passage.serializers import PassageSerializerNoChildren
 
 
 class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
-    from human_digita.passage.serializers import PassageSerializer
     image_url = serializers.SerializerMethodField()
     passage = PassageSerializerNoChildren(many=False)
     # passage = PassageSerializer(many=False)

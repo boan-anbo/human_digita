@@ -1,17 +1,13 @@
-import string
-
 from django_filters import rest_framework as filters
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from human_digita.annotation.actions import save_annotation
 from human_digita.archive_item.const import ArchiveItemKeyTypes
 from human_digita.archive_item.models import ArchiveItem
 from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
-from human_digita.document.search_indexes import DocumentIndex
 from human_digita.document.serializers import DocumentSerializer, DocumentIndexSerializer
 from human_digita.passage.models import Passage
 from human_digita.passage.serializers import PassageSerializer
@@ -70,7 +66,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
         new_archive_item = ArchiveItem()
         new_archive_item.title = title
-        new_archive_item.file_path = url
+        new_archive_item.file_url = url
         new_archive_item.file_name = title
         new_archive_item.key_type = ArchiveItemKeyTypes.URL
         new_archive_item.save()

@@ -127,7 +127,9 @@ LOCAL_APPS = [
 "human_digita.organization",
 "human_digita.passage",
 "human_digita.person",
+"human_digita.picture",
 "human_digita.point",
+
 "human_digita.place",
 "human_digita.project",
 "human_digita.question",

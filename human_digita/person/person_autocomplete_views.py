@@ -1,7 +1,6 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from human_digita.passage.models import Passage
 from human_digita.person.models import Person
 
 

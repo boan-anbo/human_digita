@@ -4,6 +4,7 @@ from django.db import models
 class ArchiveItemTypes(models.TextChoices):
     FILE = 'FILE', 'File'
     DOCUMENT = 'DOCUMENT', 'Document'
+    IMAGE = 'IMAGE', "Image"
 
 
 class ArchiveItemKeyTypes(models.TextChoices):

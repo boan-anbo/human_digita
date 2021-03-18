@@ -1,7 +1,6 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from human_digita.act_type.models import ActType
 from human_digita.timeline.models import Timeline
 
 

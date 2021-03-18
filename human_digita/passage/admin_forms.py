@@ -10,6 +10,7 @@ class PassageForm(forms.ModelForm):
         model = Passage
         fields = ('__all__')
         widgets = {
-            'document': autocomplete.ModelSelect2Multiple(url='document-autocomplete'),
+            'document': autocomplete.ModelSelect2(url='document-autocomplete'),
+            'pictures': autocomplete.ModelSelect2Multiple(url='picture-autocomplete'),
 
         }

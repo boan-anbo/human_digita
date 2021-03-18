@@ -1,9 +1,7 @@
 from dal import autocomplete
 from django.db.models import Q
 
-from human_digita.artifact.models import Artifact
 from human_digita.artifact_type.models import ArtifactType
-from human_digita.comment.models import Comment
 
 
 class ArtifactTypeAutocomplete(autocomplete.Select2QuerySetView):

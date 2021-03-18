@@ -1,7 +1,6 @@
 from dal import autocomplete
 from django import forms
 
-from human_digita.project.models import Project
 from human_digita.timeline.models import Timeline
 
 

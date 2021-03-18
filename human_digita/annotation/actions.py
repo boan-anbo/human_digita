@@ -4,7 +4,6 @@ from django.core.files.base import ContentFile
 
 from human_digita.annotation.models import Annotation
 from human_digita.comment.actions import save_comment
-from human_digita.comment.models import Comment
 from human_digita.document.models import Document
 from human_digita.passage.models import Passage
 
