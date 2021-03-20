@@ -1,3 +1,4 @@
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 from django_filters import rest_framework as filters
 # Create your views here.
 from drf_haystack.filters import HaystackHighlightFilter
@@ -23,20 +24,24 @@ class AnnotationSearchViewSet(HaystackViewSet):
 
 
 
-class AnnotationViewSet(viewsets.ModelViewSet):
+class AnnotationViewSet( viewsets.ModelViewSet):
     # this empty the project setting for authentications in order to easy the CSRF token authentication for Post, i.e. when you try to post leads.
     # authentication_classes = []
 
     # queryset = Annotation.objects.all().order_by('created')
     queryset = Annotation.objects.prefetch_related(
-        'comments',
-        'document',
-        'keyterms',
         'passage',
+        'passage__document',
+        'comments',
+        'keyterms',
         'annotation_types',
         'acts',
-        'projects'
-    ).all().order_by('created')
+        'projects',
+        'picture',
+        'document',
+        'video',
+        'acts'
+    ).all().order_by('-created')
     serializer_class = AnnotationSerializer
     filter_backends = [filters.DjangoFilterBackend]
     # filterset_class = LeadFilter
@@ -87,6 +92,7 @@ class AnnotationViewSet(viewsets.ModelViewSet):
         annot_package['annotation'] = AnnotationSerializer(annotation, many=False).data
         annot_package['docInfo'] = DocumentSerializer(document, many=False).data
         annot_package['id'] = annotation.id
+
 
         return Response(annot_package, status=status.HTTP_200_OK)
 

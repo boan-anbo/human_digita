@@ -5,6 +5,7 @@ from human_digita.act.serializers import ActSerializerNoChildren
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
+from human_digita.document.serializers import DocumentSerializer
 from human_digita.passage.serializers import PassageSerializerNoChildren
 
 
@@ -16,7 +17,9 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
     comment = serializers.SerializerMethodField()
     comments = CommentSerializer(many=True)
     acts = ActSerializerNoChildren(many=True, read_only=True)
+    document = serializers.SerializerMethodField()
     # acts = ActSerializer(many=True, read_only=True)
+
 
     class Meta:
         model = Annotation
@@ -25,13 +28,16 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             'marked_text',
             'modified_date',
             'page_index',
+            'created',
+            'modified',
             'image_url',
             'importance',
             'comments',
             'comment',
             'passage',
             'keyterms_raw',
-            'acts'
+            'acts',
+            'document'
               ]
 
 
@@ -48,6 +54,16 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             child.__str__() for child in obj.comments.all()
         ])
 
+    def get_document(self, obj: Annotation):
+        document = None
+        if obj.document:
+            document = obj.document
+
+        if document is None and obj.passage:
+            if obj.passage.document:
+                document = obj.passage.document
+
+        return DocumentSerializer(document, many=False).data
 
 class AnnotationIndexSerializer(HaystackSerializer):
     # document = DocumentSerializer(read_only=True)  # 只读,不可以进行反序列化
