@@ -11,6 +11,7 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
 
     title = indexes.CharField(indexed=True)
 
+    document_id = indexes.CharField(indexed=True)
 
     text = indexes.CharField(document=True, model_attr='text')
 
@@ -34,6 +35,12 @@ class PassageIndex(indexes.SearchIndex, indexes.Indexable):
     def prepare_id(self, obj):
         return obj.id
 
+    def prepare_document_id(self, obj):
+        document_id = None
+        if obj.document:
+            document_id = obj.document.id
+
+        return document_id
     def prepare_title(self, obj: Passage):
         document_title=None
         if obj.document:

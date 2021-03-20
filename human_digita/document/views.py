@@ -141,3 +141,17 @@ class DocumentViewSet(viewsets.ModelViewSet):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    @action(
+        detail=True,
+        methods=['get'],
+        url_path='all'
+    )
+    def get_all_passages(self, request, pk=None):
+        try:
+            # document = Document.objects.prefetch_related('passages').get(pk=pk)
+            passages = Passage.objects.prefetch_related('document', 'annotations').filter(document__id=pk).all()
+            str = PassageSerializer(passages, many=True).data
+            return Response(str, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+

@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 from human_digita.annotation.admin_forms import AnnotationForm
 from human_digita.annotation.models import Annotation
+from human_digita.common.common_admin_actions import get_obj_change_link
 from human_digita.document.admin_actions import get_document_admin_link
 from human_digita.passage.admin_actions import get_passage_links
 
@@ -73,7 +74,7 @@ class AnnotationAdmin(admin.ModelAdmin):
 
     def document_link(self, obj: Annotation):
         doc = obj.document
-        return get_document_admin_link(doc)
+        return get_obj_change_link(doc)
 
     def comment_links(self, obj: Annotation):
         comments = obj.comments.all()
@@ -92,5 +93,4 @@ class AnnotationAdmin(admin.ModelAdmin):
         return "-"
 
     def passage_links(self, obj: Annotation):
-        passages = [obj.passage]
-        return get_passage_links(passages)
+        return get_obj_change_link(obj)

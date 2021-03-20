@@ -11,6 +11,13 @@ from human_digita.archive_item.const import ArchiveItemTypes, ArchiveItemKeyType
 
 # the archive entry entity. does not differentiate from, say, multiple articles within same collection. the collection will be one archive entry, while the articles are multiple sources.
 
+def get_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    if instance.pk:
+        return '{}.{}'.format(instance.__str__(), ext)
+    else:
+        pass
+
 
 class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -30,8 +37,10 @@ class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
     file_modified_date = models.DateTimeField(blank=True, null=True)
     file_created_date = models.DateTimeField(blank=True, null=True)
 
-    image = models.ImageField(blank=True)
-    image_source_url = models.CharField(max_length=2046, blank=True)
+    image = models.ImageField(blank=True, upload_to=get_file_name)
+
+    file = models.FileField(blank=True, upload_to=get_file_name)
+
     note = RichTextField(max_length=65535, blank=True)
 
 
@@ -42,6 +51,7 @@ class ArchiveItem(TimeStampedModel, ActivatorModel, models.Model):
         null=True,
         related_name="archive_items"
     )
+
 
     def __str__(self):
         return self.title

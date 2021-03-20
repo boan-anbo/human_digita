@@ -12,6 +12,7 @@ from human_digita.person.views import PersonViewSet
 from human_digita.point.views import PointViewSet
 from human_digita.question.views import QuestionViewSet
 from human_digita.users.api.views import UserViewSet
+from human_digita.video.views import VideoViewSet
 
 if settings.DEBUG:
     router = DefaultRouter()
@@ -33,6 +34,8 @@ router.register("pictures", PersonViewSet)
 router.register("points", PointViewSet)
 router.register("questions", QuestionViewSet)
 router.register("users", UserViewSet)
+router.register("videos", VideoViewSet)
+
 
 app_name = "api"
 urlpatterns = router.urls

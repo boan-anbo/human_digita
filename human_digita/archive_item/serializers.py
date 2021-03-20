@@ -17,7 +17,7 @@ class ArchiveItemSerializer(serializers.HyperlinkedModelSerializer):
             'file_modified_date',
             'file_created_date',
             'image_db_url',
-            'image_source_url'
+            'file_db_url'
         ]
 
     def get_image_db_url(self, obj: ArchiveItem):
@@ -25,6 +25,15 @@ class ArchiveItemSerializer(serializers.HyperlinkedModelSerializer):
             request = self.context.get('request', None)
             if request:
                 return self.context['request'].build_absolute_uri(obj.image.url)
+            else:
+                return None
+        return ''
+
+    def get_file_db_url(self, obj: ArchiveItem):
+        if obj.image:
+            request = self.context.get('request', None)
+            if request:
+                return self.context['request'].build_absolute_uri(obj.file.url)
             else:
                 return None
         return ''

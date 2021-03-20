@@ -3,6 +3,24 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 
+def get_obj_change_link(obj):
+    display_text = "<a href={}>{}</a>".format(
+        reverse('admin:{}_{}_change'.format(obj._meta.app_label, obj._meta.model_name),
+                args=(obj.pk,)),
+        obj.__str__())
+    if display_text:
+        return mark_safe(display_text)
+    return "-"
+
+def get_obj_change_links(objs):
+    links = []
+    for obj in objs:
+        links.append(get_obj_change_link(obj))
+    if links:
+        return mark_safe("<br>".join([
+            child for child in links
+        ]))
+    return "-"
 def get_image_previews(image_parents):
     previews = []
     for image_parent in image_parents:

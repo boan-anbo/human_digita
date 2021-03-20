@@ -63,6 +63,7 @@ dropbox = "*"
 django-storages = "*"
 pypinyin = "*"
 beautifulsoup4 = "*"
+django-embed-video = "*"
 
 [dev-packages]
 

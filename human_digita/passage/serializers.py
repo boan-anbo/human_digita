@@ -48,6 +48,7 @@ class PassageIndexSerializer(HaystackSerializer):
             'page_index',
             'title',
             'annotations_count',
-            'last_used'
+            'last_used',
+            'document_id'
         ]  # text 由索引类进行返回, object 由序列化类进行返回,第一个参数必须是text
 

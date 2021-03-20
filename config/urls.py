@@ -32,6 +32,7 @@ from human_digita.project.project_autocomplete_views import ProjectAutocomplete
 from human_digita.question.debatable_autocomplete_views import QuestionAutocomplete
 from human_digita.timeline.timeline_autocomplete_views import TimelineAutocomplete
 from human_digita.topic.topic_autocomplete_views import TopicAutocomplete
+from human_digita.video.video_autocomplete_views import VideoAutocomplete
 
 urlpatterns = [
     # search view
@@ -181,7 +182,12 @@ url(
   r'^question-autocomplete/$',
   QuestionAutocomplete.as_view(),
   name='question-autocomplete',
-)
+),
+url(
+  r'^video-autocomplete/$',
+  VideoAutocomplete.as_view(),
+  name='video-autocomplete',
+),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS

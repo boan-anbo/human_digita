@@ -14,7 +14,9 @@ from human_digita.common.const import Importance
 from human_digita.document.models import Document
 from human_digita.keyterm.models import Keyterm
 from human_digita.passage.models import Passage
+from human_digita.picture.models import Picture
 from human_digita.project.models import Project
+from human_digita.video.models import Video
 
 
 class Annotation(ActivatorModel, TimeStampedModel, models.Model):
@@ -35,6 +37,8 @@ class Annotation(ActivatorModel, TimeStampedModel, models.Model):
     projects = ManyToManyField(Project, related_name='annotations', blank=True)
     importance = models.IntegerField(choices=Importance.choices, default=Importance.UNKNOWN, blank=True)
     document = models.ForeignKey(Document, on_delete=models.SET_NULL, null=True, blank=True, related_name='annotations')
+    picture = models.ForeignKey(Picture, on_delete=models.SET_NULL, null=True, blank=True, related_name='annotations')
+    video = models.ForeignKey(Video, on_delete=models.SET_NULL, null=True, blank=True, related_name='annotations')
 
     modified_date = models.DateTimeField(blank=True, null=True, default=datetime.now)
     page_index = models.IntegerField(null=True,blank=True)

@@ -137,6 +137,7 @@ LOCAL_APPS = [
 "human_digita.timeline",
 "human_digita.topic",
 "human_digita.users.apps.UsersConfig",
+"human_digita.video",
 
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
