@@ -13,6 +13,6 @@ class PointAutocomplete(autocomplete.Select2QuerySetView):
         qs = Point.objects.all()
 
         if self.q:
-            qs = qs.filter(Q(name__icontains=self.q)|Q(note__icontains=self.q))
+            qs = qs.filter(Q(name__icontains=self.q)|Q(note__icontains=self.q)|Q(gist__icontains=self.q))
 
         return qs

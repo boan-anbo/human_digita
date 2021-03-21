@@ -1,4 +1,3 @@
-from django_auto_prefetching import AutoPrefetchViewSetMixin
 from django_filters import rest_framework as filters
 # Create your views here.
 from drf_haystack.filters import HaystackHighlightFilter

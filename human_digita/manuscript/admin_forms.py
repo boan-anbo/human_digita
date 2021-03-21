@@ -1,23 +1,22 @@
 from dal import autocomplete
 from django import forms
 
-from human_digita.point.models import Point
+from generic.models import Generic
+from human_digita.artifact.models import Artifact
 
 
-class PointForm(forms.ModelForm):
+class GenericForm(forms.ModelForm):
     # comments = forms.ModelMultipleChoiceField(
     #     Comment.objects.all(),
     #     widget=autocomplete.ModelSelect2Multiple(url='comment-autocomplete'),
     #     required=False,
     # )
     class Meta:
-        model = Point
+        model = Generic
 
         fields = ('__all__')
         widgets = {
             'projects': autocomplete.ModelSelect2Multiple(url='project-autocomplete'),
-            'children': autocomplete.ModelSelect2Multiple(url='point-autocomplete'),
             'annotations': autocomplete.ModelSelect2Multiple(url='annotation-autocomplete'),
-
         }
 

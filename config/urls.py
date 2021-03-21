@@ -23,11 +23,12 @@ from human_digita.idea.debatable_autocomplete_views import IdeaAutocomplete
 from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
 from human_digita.knowledge_domain.debatable_autocomplete_views import KnowledgeDomainAutocomplete
 from human_digita.opinion.opinion_autocomplete_views import OpinionAutocomplete
+from human_digita.outline.outline_autocomplete_views import OutlineAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
 from human_digita.person.person_autocomplete_views import PersonAutocomplete
 from human_digita.picture.picture_autocomplete_views import PictureAutocomplete
 from human_digita.place.place_autocomplete_views import PlaceAutocomplete
-from human_digita.point.debatable_autocomplete_views import PointAutocomplete
+from human_digita.point.point_autocomplete_views import PointAutocomplete
 from human_digita.project.project_autocomplete_views import ProjectAutocomplete
 from human_digita.question.debatable_autocomplete_views import QuestionAutocomplete
 from human_digita.timeline.timeline_autocomplete_views import TimelineAutocomplete
@@ -152,6 +153,11 @@ url(
   r'^opinion-autocomplete/$',
   OpinionAutocomplete.as_view(),
   name='opinion-autocomplete',
+),
+url(
+  r'^outline-autocomplete/$',
+  OutlineAutocomplete.as_view(),
+  name='outline-autocomplete',
 ),
 url(
   r'^person-autocomplete/$',

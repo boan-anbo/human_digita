@@ -47,8 +47,12 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES = {
+    "default": env.db("DATABASE_URL")
+}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["OPTIONS"] = {"timeout": 20}
+
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -125,6 +129,7 @@ LOCAL_APPS = [
 "human_digita.object",
 "human_digita.opinion",
 "human_digita.organization",
+"human_digita.outline",
 "human_digita.passage",
 "human_digita.person",
 "human_digita.picture",
