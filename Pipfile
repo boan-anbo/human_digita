@@ -64,6 +64,7 @@ django-storages = "*"
 pypinyin = "*"
 beautifulsoup4 = "*"
 django-embed-video = "*"
+django-smuggler = "*"
 
 [dev-packages]
 

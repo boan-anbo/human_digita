@@ -5,6 +5,8 @@ from ckeditor.fields import RichTextField
 from django.db import models
 # Create your models here.
 from django.db.models import ManyToManyField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django_extensions.db.models import ActivatorModel
 from model_utils.models import TimeStampedModel
 
@@ -49,4 +51,13 @@ class Annotation(ActivatorModel, TimeStampedModel, models.Model):
 
     def __str__(self):
         return self.marked_text[0:25]
+
+
+@receiver(pre_save, sender=Annotation)
+def copy_document_from_passage(sender, instance: Annotation, **kwargs):
+    if instance.document is None:
+        if instance.passage is not None:
+            if instance.passage.document is not None:
+                instance.document = instance.passage.document
+
 

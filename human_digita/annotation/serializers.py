@@ -5,19 +5,20 @@ from human_digita.act.serializers import ActSerializerNoChildren
 from human_digita.annotation.models import Annotation
 from human_digita.annotation.search_indexes import AnnotationIndex
 from human_digita.comment.serializers import CommentSerializer
+from human_digita.document.models import Document
 from human_digita.document.serializers import DocumentSerializer
 from human_digita.passage.serializers import PassageSerializerNoChildren
 
 
 class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
-    image_url = serializers.SerializerMethodField()
-    passage = PassageSerializerNoChildren(many=False)
+    image_url = serializers.SerializerMethodField(read_only=True)
+    passage = PassageSerializerNoChildren(many=False, read_only=True)
     # passage = PassageSerializer(many=False)
 
-    comment = serializers.SerializerMethodField()
+    comment = serializers.SerializerMethodField(read_only=True)
     comments = CommentSerializer(many=True)
     acts = ActSerializerNoChildren(many=True, read_only=True)
-    document = serializers.SerializerMethodField()
+    document = DocumentSerializer(many=False, read_only=True)
     # acts = ActSerializer(many=True, read_only=True)
 
 
@@ -54,16 +55,19 @@ class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
             child.__str__() for child in obj.comments.all()
         ])
 
-    def get_document(self, obj: Annotation):
-        document = None
-        if obj.document:
-            document = obj.document
-
-        if document is None and obj.passage:
-            if obj.passage.document:
-                document = obj.passage.document
-
-        return DocumentSerializer(document, many=False).data
+    # def get_document(self, obj: Annotation):
+    #     document = None
+    #
+    #     if obj.document:
+    #         document = obj.document
+    #
+    #     if document is None:
+    #         try:
+    #             document = Document.objects.get(id=obj.passage.id)
+    #         except:
+    #             pass
+    #
+    #     return DocumentSerializer(document, many=False).data
 
 class AnnotationIndexSerializer(HaystackSerializer):
     # document = DocumentSerializer(read_only=True)  # 只读,不可以进行反序列化

@@ -9,7 +9,8 @@ from human_digita.project.serializers import ProjectSerializer
 
 class OutlineSerializer(serializers.HyperlinkedModelSerializer):
     projects = ProjectSerializer(many=True, read_only=True)
-    annotations = serializers.PrimaryKeyRelatedField(queryset=Annotation.objects.all(), many=True)
+    # annotations = serializers.PrimaryKeyRelatedField(queryset=Annotation.objects.all(), many=True)
+    annotations = AnnotationSerializer(many=True)
     points = PointSerializer(many=True, read_only=True)
     class Meta:
         model = Outline

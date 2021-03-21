@@ -6,9 +6,11 @@ from human_digita.point.models import Point
 from human_digita.project.serializers import ProjectSerializer
 
 
+
 class PointSerializer(serializers.HyperlinkedModelSerializer):
     projects = ProjectSerializer(many=True, read_only=True)
-    annotations = serializers.PrimaryKeyRelatedField(queryset=Annotation.objects.all(), many=True)
+    annotations = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # annotations = AnnotationSerializer.(many=True)
     children = serializers.SerializerMethodField()
     class Meta:
         model = Point
@@ -29,7 +31,9 @@ class PointSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_children(self, obj: Point):
         if obj.children.exists():
-            return PointSerializer(obj.children.all(), many=True).data
+            children = obj.children.all()
+            print(children)
+            return PointSerializer(children, many=True).data
         return None
     # def get_cite_key(self, obj: Document):
     #     if obj.archive_item and obj.archive_item.key_type == ArchiveItemKeyTypes.CITE_KEY:

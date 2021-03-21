@@ -38,7 +38,7 @@ from human_digita.video.video_autocomplete_views import VideoAutocomplete
 urlpatterns = [
     # search view
     # path('^search/', include('haystack.urls')),
-
+    path('admin/', include('smuggler.urls')),  # before admin url patterns!
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
@@ -202,6 +202,9 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    # Data Syncing Library
+
+    # path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:

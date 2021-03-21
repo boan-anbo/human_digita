@@ -38,8 +38,9 @@ class AnnotationViewSet( viewsets.ModelViewSet):
         'projects',
         'picture',
         'document',
+        'document__archive_item',
         'video',
-        'acts'
+        'acts',
     ).all().order_by('-created')
     serializer_class = AnnotationSerializer
     filter_backends = [filters.DjangoFilterBackend]

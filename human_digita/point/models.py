@@ -21,7 +21,7 @@ class Point(TimeStampedModel, ActivatorModel, models.Model):
     target = models.IntegerField(default=0, blank=True)
     index = models.IntegerField(default=0, blank=True)
 
-    children = ManyToManyField('self', blank=True)
+    parent = models.ForeignKey('self', blank=True, related_name='children', null=True, on_delete=models.SET_NULL)
     annotations = ManyToManyField(Annotation, blank=True, related_name='points')
     manuscript = models.CharField(max_length=1024, blank=True)
     importance = models.IntegerField(choices=Importance.choices, default=Importance.UNKNOWN, blank=True)

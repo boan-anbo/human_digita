@@ -20,7 +20,7 @@ class Outline(TimeStampedModel, ActivatorModel, models.Model):
     name = models.CharField(max_length=255)
 
 
-    points = ManyToManyField(Point, blank=True)
+    points = ManyToManyField(Point, blank=True, related_name='outlines')
     annotations = ManyToManyField(Annotation, blank=True, related_name='outlines')
     manuscriptId = models.CharField(max_length=255, blank=True)
     note = RichTextField(max_length=65535, blank=True, default='')

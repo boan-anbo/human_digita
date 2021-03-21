@@ -1,3 +1,4 @@
+from django import db
 from django.db import connection
 from django_filters import rest_framework as filters
 # Create your views here.
@@ -30,8 +31,11 @@ class OutlineViewSet(viewsets.ModelViewSet):
         methods=['post']
     )
     def post_outline(self, request):
-        saved_outline = self.save_outline(request.data)
-        return Response(OutlineSerializer(saved_outline, many=False).data, status=status.HTTP_200_OK)
+        self.save_outline(request.data)
+        # str = OutlineSerializer(saved_outline, many=False).data
+        # db.connections.close_all()
+        # print(str)
+        return Response(status=status.HTTP_200_OK)
 
 
     # "name": "Outline two",
@@ -48,7 +52,7 @@ class OutlineViewSet(viewsets.ModelViewSet):
     # ],
     # "modified": "2021-03-21T02:27:47.264338Z"
     def save_outline(self, json) -> Outline:
-
+        # db.connections.close_all()
         new_outline = None
 
         id = json.get('id', None)
@@ -74,16 +78,18 @@ class OutlineViewSet(viewsets.ModelViewSet):
         manuscriptId = json.get('manuscriptId', None)
         if manuscriptId:
             new_outline.manuscriptId = manuscriptId
-
-        new_outline.save()
-
         points = json.get('points', None)
         if points:
 
             new_outline.points.clear()
+
+        new_outline.save()
+
+        if points is not None:
+            new_outline.points.clear()
             for point in points:
-                saved_point = save_point(point)
-                new_outline.points.add(saved_point)
+                save_point(point, outline=new_outline)
+                # new_outline.points.add(saved_point)
 
         annotations = json.get('annotations', None)
         if annotations is not None:
@@ -95,4 +101,4 @@ class OutlineViewSet(viewsets.ModelViewSet):
 
         new_outline.save()
 
-        return new_outline
+        return

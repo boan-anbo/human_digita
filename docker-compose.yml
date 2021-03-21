@@ -29,8 +29,8 @@ services:
     image: human_digita_production_postgres
     container_name: hd_postgres
     volumes:
-      - local_postgres_data:/var/lib/postgresql/data:Z
-      - local_postgres_data_backups:/backups:z
+      - ./hm_db/local_postgres_data:/var/lib/postgresql/data:Z
+      - ./hm_db/local_postgres_data_backups:/backups:z
     ports:
       - "9001:5432"
     env_file:

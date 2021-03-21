@@ -5,6 +5,9 @@ from pathlib import Path
 
 import environ
 
+import _locale
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # human_digita/
 APPS_DIR = ROOT_DIR / "human_digita"
@@ -51,7 +54,7 @@ DATABASES = {
     "default": env.db("DATABASE_URL")
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
-DATABASES["default"]["OPTIONS"] = {"timeout": 20}
+DATABASES["default"]["OPTIONS"] = {"timeout": 10}
 
 
 # URLS
