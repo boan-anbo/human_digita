@@ -30,7 +30,8 @@ class PointViewSet(viewsets.ModelViewSet):
     )
     def post_point(self, request):
         saved_point = save_point(request.data)
-        return Response(PointSerializer(saved_point, many=False).data, status=status.HTTP_200_OK)
+        point = Point.objects.get(pk=saved_point)
+        return Response(PointSerializer(point, many=False).data, status=status.HTTP_200_OK)
 
 
     # "name": "Point two",
