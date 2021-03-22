@@ -93,4 +93,4 @@ class AnnotationAdmin(admin.ModelAdmin):
         return "-"
 
     def passage_links(self, obj: Annotation):
-        return get_obj_change_link(obj)
+        return get_obj_change_link(obj.passage)

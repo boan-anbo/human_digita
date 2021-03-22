@@ -9,6 +9,44 @@ from human_digita.document.models import Document
 from human_digita.document.serializers import DocumentSerializer
 from human_digita.passage.serializers import PassageSerializerNoChildren
 
+class AnnotationLightSerializer(serializers.HyperlinkedModelSerializer):
+    image_url = serializers.SerializerMethodField(read_only=True)
+    comment = serializers.SerializerMethodField(read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    document = DocumentSerializer(many=False, read_only=True)
+
+
+    class Meta:
+        model = Annotation
+        fields = [
+            'id',
+            'marked_text',
+            'modified_date',
+            'page_index',
+            'created',
+            'modified',
+            'image_url',
+            'importance',
+            'comments',
+            'comment',
+            'keyterms_raw',
+            'document'
+              ]
+
+
+    def get_image_url(self, obj):
+        if obj.image:
+            request = self.context.get('request', None)
+            if request:
+                return self.context['request'].build_absolute_uri(obj.image.url)
+            else:
+                return None
+        return ''
+    def get_comment(self, obj):
+        return ";\n ".join([
+            child.__str__() for child in obj.comments.all()
+        ])
+
 
 class AnnotationSerializer(serializers.HyperlinkedModelSerializer):
     image_url = serializers.SerializerMethodField(read_only=True)

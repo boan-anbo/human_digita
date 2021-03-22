@@ -17,7 +17,12 @@ class OutlineViewSet(viewsets.ModelViewSet):
     queryset = Outline.objects.prefetch_related(
         'projects',
         'annotations',
-        'points'
+        'annotations__comments',
+        'annotations__document',
+        'annotations__acts',
+        'points',
+        'points__children',
+        'points__annotations'
 
     ).all().order_by('-created')
     serializer_class = OutlineSerializer

@@ -95,6 +95,9 @@ def save_annotation(annotation_json, document: Document=None, update=True) -> st
             passage_id = passage_json.get('id', None)
             passage_obj = Passage.objects.get(id=passage_id)
             passage_obj.annotations.add(new_annotation)
+            if new_annotation.document is None and passage_obj.document is not None:
+                new_annotation.document = passage_obj.document
+                new_annotation.save()
             passage_obj.save()
 
             # new_annotation.save()

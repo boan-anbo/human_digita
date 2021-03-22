@@ -1,16 +1,16 @@
 from rest_framework import serializers
 
 from human_digita.annotation.models import Annotation
-from human_digita.annotation.serializers import AnnotationSerializer
+from human_digita.annotation.serializers import AnnotationSerializer, AnnotationLightSerializer
 from human_digita.outline.models import Outline
 from human_digita.point.serializers import PointSerializer
 from human_digita.project.serializers import ProjectSerializer
 
 
 class OutlineSerializer(serializers.HyperlinkedModelSerializer):
-    projects = ProjectSerializer(many=True, read_only=True)
+    # projects = ProjectSerializer(many=True, read_only=True)
     # annotations = serializers.PrimaryKeyRelatedField(queryset=Annotation.objects.all(), many=True)
-    annotations = AnnotationSerializer(many=True)
+    annotations = AnnotationLightSerializer(many=True, read_only=True)
     points = PointSerializer(many=True, read_only=True)
     class Meta:
         model = Outline
@@ -20,7 +20,7 @@ class OutlineSerializer(serializers.HyperlinkedModelSerializer):
             'created',
             'note',
             'manuscriptId',
-            'projects',
+            # 'projects',
             'points',
             'annotations',
             'modified',

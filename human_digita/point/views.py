@@ -15,7 +15,7 @@ class PointViewSet(viewsets.ModelViewSet):
     queryset = Point.objects.prefetch_related(
         'projects',
         'annotations',
-
+        'parent',
         'children',
     ).all().order_by('-created')
     serializer_class = PointSerializer
