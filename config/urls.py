@@ -22,6 +22,7 @@ from human_digita.document.document_autocomplete_views import DocumentAutocomple
 from human_digita.idea.debatable_autocomplete_views import IdeaAutocomplete
 from human_digita.keyterm.keyterm_autocomplete_views import KeytermAutocomplete
 from human_digita.knowledge_domain.debatable_autocomplete_views import KnowledgeDomainAutocomplete
+from human_digita.lead.generic_autocomplete_views import LeadAutocomplete
 from human_digita.opinion.opinion_autocomplete_views import OpinionAutocomplete
 from human_digita.outline.outline_autocomplete_views import OutlineAutocomplete
 from human_digita.passage.passage_autocomplete_views import PassageAutocomplete
@@ -137,7 +138,11 @@ url(
   IdeaAutocomplete.as_view(),
   name='idea-autocomplete',
 ),
-
+url(
+  r'^lead-autocomplete/$',
+  LeadAutocomplete.as_view(),
+  name='lead-autocomplete',
+),
                   url(
   r'^keyterm-autocomplete/$',
   KeytermAutocomplete.as_view(),

@@ -126,6 +126,7 @@ LOCAL_APPS = [
 "human_digita.institution_type",
 "human_digita.interpretation",
 "human_digita.keyterm",
+"human_digita.lead",
 "human_digita.location",
 "human_digita.manuscript_backup",
 "human_digita.narrative",
