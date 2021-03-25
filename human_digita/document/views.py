@@ -4,11 +4,13 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from human_digita.annotation.actions import save_annotation
 from human_digita.archive_item.const import ArchiveItemKeyTypes
 from human_digita.archive_item.models import ArchiveItem
 from human_digita.document.actions import save_doc_info_to_document
 from human_digita.document.models import Document
 from human_digita.document.serializers import DocumentSerializer, DocumentIndexSerializer
+from human_digita.passage.actions import save_passage
 from human_digita.passage.models import Passage
 from human_digita.passage.serializers import PassageSerializer
 from scripts.get_web_page import get_webpage_content_and_title
@@ -104,16 +106,20 @@ class DocumentViewSet(viewsets.ModelViewSet):
 
             # print('Annotation Length', len(annotations))
 
-            # if annotations is not None and len(annotations) > 0:
-                # if annotations:
-                # for annotation in annotations:
-                #     save_annotation(annotation, new_doc)
-                    # print(1)
             # print(request.data)
 
+
             if fulltexts is not None and len(fulltexts) > 0:
-                print('Has FUll Texts')
-            # leads_payload = AnnotationSerializer(annotations, many=True).data
+                for fulltext in fulltexts:
+                    save_passage(fulltext, new_doc)
+
+            # needs to rewrite, because native pdf-gongju extraction does not contain passage. there needs to be a way to extract saved passage and link it to the new annotation which was added externally.
+            if annotations is not None and len(annotations) > 0:
+                for annotation in annotations:
+                    if (fulltexts is None):
+                        save_annotation(annotation, new_doc)
+                    else:
+                        save_annotation(annotation)
 
             return Response(status=status.HTTP_200_OK)
         except Exception as e:

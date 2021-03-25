@@ -11,8 +11,14 @@ from human_digita.picture.admin_action import get_picture_admin_links
 class ArtifactAdmin(admin.ModelAdmin):
     search_fields = ['name', 'name_cn']
     form = ArtifactForm
-    ordering = ['artifact_types', 'name', 'name_cn']
-    list_display = ['id', 'display_artifact_types', 'name', 'name_cn', 'name_alt']
+    ordering = ['create_year','create_month','artifact_types', 'name']
+    list_display = ['id',
+                    'name',
+                    'year_month_day',
+                    'creator_raw',
+                    'display_artifact_types',
+                    'name_cn',
+                    'name_alt']
     readonly_fields = [
         'display_artifact_types',
         'picture_links',
@@ -25,6 +31,7 @@ class ArtifactAdmin(admin.ModelAdmin):
             'documents',
             'pictures',
             'projects',
+            'artifact_types',
             'annotations'
             )
         return qs
@@ -44,3 +51,14 @@ class ArtifactAdmin(admin.ModelAdmin):
         for picture in pictures:
             image_parents.append(picture.archive_item)
         return get_image_previews(image_parents)
+
+    def year_month_day(self, obj: Artifact):
+        year_month_day = []
+        if obj.create_year:
+            year_month_day.append(obj.create_year.__str__())
+        if obj.create_month:
+            year_month_day.append(obj.create_month.__str__())
+        if obj.create_day:
+            year_month_day.append(obj.create_day.__str__())
+        year_month_day_str = '-'.join(year_month_day)
+        return year_month_day_str

@@ -36,6 +36,7 @@ class Act(TimeStampedModel, ActivatorModel, models.Model):
     start_day_local = models.IntegerField(blank=True, null=True)
     start_hour_local = models.IntegerField(blank=True, null=True)
 
+
     #type. e.g. timeline. bio.
     act_types = ManyToManyField(ActType, related_name='acts', blank=True)
 
